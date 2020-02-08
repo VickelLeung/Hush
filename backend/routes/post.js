@@ -22,13 +22,12 @@ router.route('/love/:id').get((req, res)=>{
     .catch(err => res.status(400).json("Error: " + err));
 })
 
-router.route('/love/:id').put((req, res)=>{
+router.route('/love/comment/:id').put((req, res)=>{
     // let id = req.params.id;
-    // let newComment = [];
-    // username:{type:String, require:true},
-    // message:{type: String, require:true}
+    const username = req.body.username;
+    const message = req.body.message;
     console.log(req.params.id);
-    let update = [{username:"john",message:'testing array'}];
+    let update = [{username: username,message:message}];
     Post.findByIdAndUpdate({ _id: req.params.id}, {$push: {comment: update}})
     .then(post => res.json(post)) //return as json
     .catch(err => res.status(400).json("Error: " + err));
