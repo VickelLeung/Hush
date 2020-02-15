@@ -1,25 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Homepage } from './pages/Homepage';
+import {Chat} from "./pages/Chat";
+import {Profile} from './pages/Profile';
+import {Register} from './pages/Register'
+import { NavigationBar } from './components/navigation/NavigationBar';
+import {CreatePost} from "./components/CreatePost";
+import {Categories} from './pages/Categories';
+import {CategoriesCard} from "./components/CategoriesContainer/CategoriesCard";
+import {Explore} from "./pages/Explore";
+import {PostCard} from "./components/Card/PostCard";
+ 
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+        <NavigationBar />
+          <Route exact path="/" component={Homepage} /> 
+      <div className="App">
+            <Route exact path="/chat" component={Chat} /> 
+            <Route exact path="/categories" component={Categories} /> 
+            <Route exact path="/explore" component={Explore} />
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/createpost" component={CreatePost} />
+
+            <Route exact path="/categories/love" component={()=><CategoriesCard type="love" name="Love"/>} />
+            <Route exact path="/categories/employment" component={()=><CategoriesCard type="employment" name="Employment"/>} />
+            <Route exact path="/categories/family" component={()=><CategoriesCard type="family" name="Family"/>} />
+            <Route exact path="/categories/school" component={()=><CategoriesCard type="school" name="School"/>} />
+           
+            <Route path="/categories/love/:id" component={(props)=><PostCard  {...props}/>} />
+           
+         
+      </div>
+    </Router>
   );
 }
 
