@@ -18,9 +18,9 @@ connection.once('open',()=>{
     console.log("connection established");
 });
 
-const postRouter = require('./routes/post');
+//const postRouter = require('./routes/post');
 
-app.use("/post", postRouter);
+//app.use("/post", postRouter);
 
 // const exerciseRouter = require('./routes/exercises');
 // const userRouter = require('./routes/users');
