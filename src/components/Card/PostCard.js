@@ -30,7 +30,7 @@ class PostCard extends PureComponent{
   getCard=()=>{
     let id  = this.props.match.params.id;
     console.log(id);
-    axios.get('https://hushbackend.herokuapp.com//post/love/'+id)
+    axios.get('https://hushbackend.herokuapp.com/post/love/'+id)
     .then((result)=>{
     
       let tempArr = result.data[0].comment;
@@ -42,12 +42,12 @@ class PostCard extends PureComponent{
   postComment =()=>{
     let id  = this.props.match.params.id;
     let data ={username: this.state.username, message: this.state.message}
-    axios.put('https://hushbackend.herokuapp.com//love/comment/'+id, data )
+    axios.put('https://hushbackend.herokuapp.com/love/comment/'+id, data )
     .then(r => console.log(r.status))
     .catch(e => console.log(e));
 
     //get comments
-    axios.get('https://hushbackend.herokuapp.com//post/love/'+id)
+    axios.get('https://hushbackend.herokuapp.com/post/love/'+id)
     .then((result)=>{
     
       let tempArr = result.data[0].comment;

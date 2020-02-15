@@ -19,7 +19,7 @@ class Explore extends PureComponent{
 
         // let id  = this.props.match.params.id;
         // console.log(id);
-        axios.get('https://hushbackend.herokuapp.com//post/' + category)
+        axios.get('https://hushbackend.herokuapp.com/post/' + category)
         .then((result)=>{
         //   let tempArr = result.data[0].comment;
           console.log("s: "+ result.data[0]);
