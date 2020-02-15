@@ -32,7 +32,7 @@ class CategoriesCard extends Component{
   }
   
   getCard=()=>{
-    axios.get('http://localhost:3001/post/'+ this.props.type)
+    axios.get('https://hushbackend.herokuapp.com//post/'+ this.props.type)
     .then((result)=>{
       console.log(result.data)
       this.setState({card: result.data})

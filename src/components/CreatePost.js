@@ -34,7 +34,7 @@ class CreatePost extends Component{
         const post = {user:username, title:this.state.title, category: this.state.category, description: this.state.description, date: new Date().toDateString()}
         console.log("submit...");
         if(this.state.title && this.state.category && this.state.description){
-            axios.post("http://localhost:3001/post/add", post)
+            axios.post("https://hushbackend.herokuapp.com//post/add", post)
             .then(response => { 
                 console.log(response.data);  
                 console.log("id:" + response.data.id)
