@@ -23,6 +23,8 @@ class Authenticate extends PureComponent{
             password: this.state.registerPassword
         }
 
+        console.log(userData);
+
         register(userData).then(res => {
             if (res) {
               this.props.history.push(`/login`)
@@ -41,15 +43,14 @@ class Authenticate extends PureComponent{
           this.props.history.push(`/profile`)
         }
       })
-
     }
 
     render(){
     let Login = <LoginContainer>
         <Title>Login</Title>
         <FormContainer>
-            <TextField label="Email: "/>
-            <TextField label="Password"/>
+            <TextField onChange={(e)=>{this.setState({loginEmail: e.target.value})}} label="Email: "/>
+            <TextField type="password" onChange={(e)=>{this.setState({loginPassword: e.target.value})}} label="Password"/>
             <Button onClick={this.submitLogin}>Submit</Button>
         </FormContainer>
         <LinkContainer>
@@ -63,9 +64,9 @@ class Authenticate extends PureComponent{
     let Register = <div>
         <Title>Register</Title>
         <FormContainer>
-            <TextField label="Email: "/>
-            <TextField label="Display name: "/>
-            <TextField label="Password"/>
+            <TextField onChange={(e)=>{this.setState({registerEmail: e.target.value})}} label="Email: "/>
+            <TextField onChange={(e)=>{this.setState({displayName: e.target.value})}} label="Display name: "/>
+            <TextField type="password" onChange={(e)=>{this.setState({registerPassword: e.target.value})}} label="Password"/>
             <Button onClick={this.submitRegister}>Submit</Button>
 
             <Button onClick={()=>{this.setState({isAuthenticated: !this.state.isAuthenticated})}}>

@@ -8,6 +8,7 @@ export const register = (newUser) =>{
     })
     .then(response =>{
         console.log("registered");
+        console.log(newUser);
     })
 }
 
