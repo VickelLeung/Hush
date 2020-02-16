@@ -31,18 +31,6 @@ router.route('/love/comment/:id').put((req, res)=>{
     Post.findByIdAndUpdate({ _id: req.params.id}, {$push: {comment: update}})
     .then(post => res.json(post)) //return as json
     .catch(err => res.status(400).json("Error: " + err));
-
-    // Post.find({_id: id})
-    // // .then(post => res.json(post)) //return as json
-    // // .catch(err => res.status(400).json("Error: " + err));
-    // newComment.push("testing here");
-
-    // const newPost = new Post ({
-    //     newComment
-    // })
-
-    // newPost.save()
-
 })
 
 //REVISE
@@ -65,8 +53,22 @@ router.route('/employment').get((req, res)=>{
     .catch(err => res.status(400).json("Error: " + err));
 })
 
+router.route('/employment/:id').get((req, res)=>{
+    let id = req.params.id;
+    Post.find({_id: id})
+    .then(post => res.json(post)) //return as json
+    .catch(err => res.status(400).json("Error: " + err));
+})
+
 router.route('/family').get((req, res)=>{
     Post.find({category:"family"})
+    .then(post => res.json(post)) //return as json
+    .catch(err => res.status(400).json("Error: " + err));
+})
+
+router.route('/family/:id').get((req, res)=>{
+    let id = req.params.id;
+    Post.find({_id: id})
     .then(post => res.json(post)) //return as json
     .catch(err => res.status(400).json("Error: " + err));
 })
@@ -76,6 +78,79 @@ router.route('/school').get((req, res)=>{
     .then(post => res.json(post)) //return as json
     .catch(err => res.status(400).json("Error: " + err));
 })
+
+router.route('/school/:id').get((req, res)=>{
+    let id = req.params.id;
+    Post.find({_id: id})
+    .then(post => res.json(post)) //return as json
+    .catch(err => res.status(400).json("Error: " + err));
+})
+
+router.route('/work').get((req, res)=>{
+    Post.find({category:"work"})
+    .then(post => res.json(post)) //return as json
+    .catch(err => res.status(400).json("Error: " + err));
+})
+
+router.route('/work/:id').get((req, res)=>{
+    let id = req.params.id;
+    Post.find({_id: id})
+    .then(post => res.json(post)) //return as json
+    .catch(err => res.status(400).json("Error: " + err));
+})
+
+router.route('/dating').get((req, res)=>{
+    Post.find({category:"dating"})
+    .then(post => res.json(post)) //return as json
+    .catch(err => res.status(400).json("Error: " + err));
+})
+
+router.route('/dating/:id').get((req, res)=>{
+    let id = req.params.id;
+    Post.find({_id: id})
+    .then(post => res.json(post)) //return as json
+    .catch(err => res.status(400).json("Error: " + err));
+})
+
+router.route('/finance').get((req, res)=>{
+    Post.find({category:"finance"})
+    .then(post => res.json(post)) //return as json
+    .catch(err => res.status(400).json("Error: " + err));
+})
+
+router.route('/finance/:id').get((req, res)=>{
+    let id = req.params.id;
+    Post.find({_id: id})
+    .then(post => res.json(post)) //return as json
+    .catch(err => res.status(400).json("Error: " + err));
+})
+
+router.route('/family').get((req, res)=>{
+    Post.find({category:"family"})
+    .then(post => res.json(post)) //return as json
+    .catch(err => res.status(400).json("Error: " + err));
+})
+
+router.route('/family/:id').get((req, res)=>{
+    let id = req.params.id;
+    Post.find({_id: id})
+    .then(post => res.json(post)) //return as json
+    .catch(err => res.status(400).json("Error: " + err));
+})
+
+router.route('/miscellaneous').get((req, res)=>{
+    Post.find({category:"miscellaneous"})
+    .then(post => res.json(post)) //return as json
+    .catch(err => res.status(400).json("Error: " + err));
+})
+
+router.route('/miscellaneous/:id').get((req, res)=>{
+    let id = req.params.id;
+    Post.find({_id: id})
+    .then(post => res.json(post)) //return as json
+    .catch(err => res.status(400).json("Error: " + err));
+})
+
 // End of categories endpoints
 
 //add posts

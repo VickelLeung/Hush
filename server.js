@@ -18,18 +18,25 @@ connection.once('open',()=>{
     console.log("connection established");
 });
 
+//const getRouter = require('./routes/get');
 const postRouter = require('./routes/post');
+
+const userRouter = require('./routes/user');
 
 app.use("/post", postRouter);
 
-app.get('/', function (req, res) {
-    res.send('hello world')
-  })
+app.use("/user", userRouter);
+
+// app.get('/', function (req, res) {
+//     res.send('hello world')
+//   })
+
 // const exerciseRouter = require('./routes/exercises');
 // const userRouter = require('./routes/users');
 
 // app.use("/exercises", exerciseRouter);
 // app.use("/users", userRouter);
+
 
 app.listen(port, ()=>{
     console.log("Server is running on port: " + port);
