@@ -23,7 +23,7 @@ class Authenticate extends PureComponent{
             password: this.state.registerPassword
         }
 
-        login(userData).then(res => {
+        register(userData).then(res => {
             if (res) {
               this.props.history.push(`/login`)
             }
