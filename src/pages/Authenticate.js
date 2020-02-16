@@ -50,7 +50,7 @@ class Authenticate extends PureComponent{
         <FormContainer>
             <TextField label="Email: "/>
             <TextField label="Password"/>
-            <Button>Submit</Button>
+            <Button onClick={this.submitLogin}>Submit</Button>
         </FormContainer>
         <LinkContainer>
             <span>Forgot password?</span>
@@ -66,7 +66,7 @@ class Authenticate extends PureComponent{
             <TextField label="Email: "/>
             <TextField label="Display name: "/>
             <TextField label="Password"/>
-            <Button>Submit</Button>
+            <Button onClick={this.submitRegister}>Submit</Button>
 
             <Button onClick={()=>{this.setState({isAuthenticated: !this.state.isAuthenticated})}}>
                 Already have an account? Click to Login
