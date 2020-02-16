@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const register = (newUser) =>{
-    return axios.post("user/register",{
+    return axios.post("https://hushbackend.herokuapp.com/user/register",{
         displayName: newUser.displayName,
         email: newUser.email,
         password: newUser.password
@@ -12,7 +12,7 @@ export const register = (newUser) =>{
 }
 
 export const login = (user) =>{
-    return axios.post("user/login",{
+    return axios.post("https://hushbackend.herokuapp.com/user/login",{
         email: user.email,
         password: user.password
     })
@@ -26,7 +26,7 @@ export const login = (user) =>{
 }
 
 export const getProfile = user =>{
-    return axios.get("user/profile",{
+    return axios.get("https://hushbackend.herokuapp.com/user/profile",{
 
     })
     .then(response=>{
