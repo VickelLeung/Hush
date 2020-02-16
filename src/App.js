@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Homepage } from './pages/Homepage';
 import {Chat} from "./pages/Chat";
 import {Profile} from './pages/Profile';
-import {Register} from './pages/Register'
-import { NavigationBar } from './components/navigation/NavigationBar';
+import {Authenticate} from './pages/Authenticate';
+import {NavigationBar } from './components/navigation/NavigationBar';
 import {CreatePost} from "./components/CreatePost";
 import {Categories} from './pages/Categories';
 import {CategoriesCard} from "./components/CategoriesContainer/CategoriesCard";
@@ -23,7 +23,7 @@ function App() {
             <Route exact path="/explore" component={Explore} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/profile" component={Profile} />
-            <Route exact path="/register" component={Register} />
+            <Route exact path="/authenticate" component={Authenticate} />
             <Route exact path="/createpost" component={CreatePost} />
 
             <Route exact path="/categories/love" component={()=><CategoriesCard type="love" name="Love"/>} />

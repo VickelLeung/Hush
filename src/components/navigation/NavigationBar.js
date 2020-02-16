@@ -10,7 +10,7 @@ const NavigationBar = () =>{
          <LinkItem to="/explore">Explore </LinkItem>
          <LinkItem to="/categories">Categories</LinkItem>
          <LinkItem to="/createpost">Post secrets</LinkItem>
-         <LinkItem to="/register">Register</LinkItem>
+         <LinkItem to="/authenticate">Login/Register</LinkItem>
     </Wrapper>)
 }
 
