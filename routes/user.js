@@ -14,12 +14,19 @@ process.env.SECRET_KEY = "secret";
 users.post("/register", (req, res)=>{
     const today = new Date();
 
-    const userData = {
-        email :  req.body.email,
-        displayName : req.body.displayName,
-        password  : req.body.password,
-        created: today
-    }
+    let email =  req.body.email;
+    let displayName = req.body.displayName;
+    let password  = req.body.password;
+    let created = today;
+
+    const userData = new Post (
+        {
+            email,
+            displayName,
+            password,
+            created
+        }
+    )
 
     console.log(userData);
 
@@ -36,13 +43,20 @@ users.post("/register", (req, res)=>{
                 userData.password = hash
 
                 //create new user
-                User.create(userData)
-                .then((user)=>{
-                    res.json({status: email.email + "Registered"});
-                })
-                .catch((err)=>{
-                    res.send("Error: " + err);
-                })
+                // User.create(userData)
+                // .then((user)=>{
+                //     res.json({status: email.email + "Registered"});
+                // })
+                // .catch((err)=>{
+                //     res.send("Error: " + err);
+                // })
+                User.save()
+                .then((item)=>{ res.json({status: email.email + "Registered"});})
+                .catch(err => res.status(400).json("Error: " + err));
+
+                // newPost.save()
+                // .then((item)=> res.json(item.id))
+                // .catch(err => res.status(400).json("Error: " + err));
             })
         }
         else{
