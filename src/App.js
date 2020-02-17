@@ -32,8 +32,6 @@ function App() {
             <Route exact path="/categories/school" component={()=><CategoriesCard type="school" name="School"/>} />
            
             <Route path="/categories/love/:id" component={(props)=><PostCard  {...props}/>} />
-           
-         
       </div>
     </Router>
   );

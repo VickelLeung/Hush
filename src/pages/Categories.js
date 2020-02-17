@@ -46,6 +46,14 @@ const LinkBtn = styled(Link)`
     border: 2px solid black;
     padding: 3%;
     margin: 1%;
+
+    -webkit-transition: background 1s; /* For Safari 3.0 to 6.0 */
+    transition: background 1s; /* For modern browsers */
+
+    &:hover {
+        background: black;
+        color: white;
+    }
 `;
 
 const LinkContainer = styled.div`
