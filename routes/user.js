@@ -3,7 +3,6 @@ const users = express.Router();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-
 const User = require("../model/userModel");
 
 users.use(cors());
@@ -12,14 +11,14 @@ process.env.SECRET_KEY = "secret";
 
 //register a user
 users.post("/register", (req, res)=>{
-    const today = new Date();
+    const today = new Date().toString;
 
     let email =  req.body.email;
     let displayName = req.body.displayName;
     let password  = req.body.password;
     let created = today;
 
-    const userData = new Post (
+    const userData = new User (
         {
             email,
             displayName,
@@ -37,6 +36,8 @@ users.post("/register", (req, res)=>{
     .then((user)=>{
         //if user doesn't exist
         console.log(user);
+        console.log(user.email);
+        console.log(user.password);
         console.log(!user);
         if(!user){
             bcrypt.hash(req.body.password, 10, (err, hash)=>{
@@ -50,7 +51,7 @@ users.post("/register", (req, res)=>{
                 // .catch((err)=>{
                 //     res.send("Error: " + err);
                 // })
-                User.save()
+                userData.save()
                 .then((item)=>{ res.json({status: email.email + "Registered"});})
                 .catch(err => res.status(400).json("Error: " + err));
 
