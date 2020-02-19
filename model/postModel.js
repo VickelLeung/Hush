@@ -13,12 +13,10 @@ const postSchema = new Schema({
   category: { type: String, require: true },
   description: { type: String, require: true },
   date: { type: Date, require: true },
-  toExpire: { type: Boolean, default: false },
+  toExpire: { type: Boolean, default: true },
   expireAt: {
     type: Date,
-    default: Date.now,
-    index: { expires: "1m" },
-    partialFilterExpression: { toExpire: true }
+    index: { expires: "3d" }
   },
   comment: [commentSchema]
 });

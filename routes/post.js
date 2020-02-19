@@ -159,7 +159,14 @@ router.route("/add").post((req, res) => {
   const description = req.body.description;
   const date = Date.parse(req.body.date);
   const user = req.body.user;
-  const expireAt = req.body.expire;
+  const toExpire = req.body.toExpire;
+  let expireAt = "";
+
+  if (toExpire) {
+    expireAt = Date.now();
+  }
+
+  console.log("date: " + expireAt);
 
   const newPost = new Post({
     title,
@@ -167,6 +174,7 @@ router.route("/add").post((req, res) => {
     category,
     description,
     date,
+    toExpire,
     expireAt
   });
 
