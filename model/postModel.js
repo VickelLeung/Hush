@@ -1,20 +1,26 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
-    username:{type:String, require:true},
-    message:{type: String, require:true}
-})
+  username: { type: String, require: true },
+  message: { type: String, require: true }
+});
 
 const postSchema = new Schema({
-    title:{type:String, require:true},
-    user:{type:String, require:true},
-    category:{type: String, require:true},
-    description:{type:String, require:true},
-    date: {type: Date, require:true},
-    comment: [commentSchema]
-})
+  title: { type: String, require: true },
+  user: { type: String, require: true },
+  category: { type: String, require: true },
+  description: { type: String, require: true },
+  date: { type: Date, require: true },
+  toExpire: { type: Boolean, default: true },
+  expireAt: {
+    type: Date,
+    default: Date.now,
+    index: { expires: "1m", partialFilterExpression: { payed: true } }
+  },
+  comment: [commentSchema]
+});
 
 const Post = mongoose.model("Post", postSchema);
 
