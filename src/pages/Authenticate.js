@@ -46,11 +46,25 @@ class Authenticate extends PureComponent {
       password: this.state.loginPassword
     };
 
-    login(userData).then(res => {
-      if (res) {
-        this.props.history.push(`/profile`);
-      }
-    });
+    login(userData)
+      .then(res => {
+        console.log(res);
+        console.log(res === null);
+        console.log(res.error);
+        if (res.error) {
+          console.log("Erros ");
+        }
+
+        if (res._doc != null) {
+          console.log(res);
+          this.props.history.push({
+            pathname: "/profile",
+            // search: "?query=abc",
+            state: { detail: res }
+          });
+        }
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
