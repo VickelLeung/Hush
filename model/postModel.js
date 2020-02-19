@@ -17,7 +17,7 @@ const postSchema = new Schema({
   expireAt: {
     type: Date,
     default: Date.now,
-    index: { expires: "1m", partialFilterExpression: { payed: true } }
+    index: { expires: "1m", partialFilterExpression: { toExpire: true } }
   },
   comment: [commentSchema]
 });
