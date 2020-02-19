@@ -74,8 +74,18 @@ users.post("/login", (req, res) => {
         let token = jwt.sign(payload, process.env.SECRET_KEY, {
           expiresIn: 2400
         });
-        console.log("sucessfully sign in");
-        res.send(token);
+        // console.log("sucessfully sign in");
+        // console.log(user);
+
+        let tempObj = { ...user, token: token };
+        console.log(tempObj);
+
+        // tempObj.map(x => {
+        //   return console.log(x.email);
+        // });
+
+        // user.push("token: " + token);
+        res.send(tempObj);
       } else {
         //password don't match
         res.json({ error: "Error, password does not match" });
