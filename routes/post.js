@@ -166,8 +166,6 @@ router.route("/add").post((req, res) => {
     expireAt = Date.now();
   }
 
-  console.log("date: " + expireAt);
-
   const newPost = new Post({
     title,
     user,
