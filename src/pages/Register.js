@@ -2,16 +2,11 @@ import React, { PureComponent } from "react";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { login } from "../components/UserFunctions";
 import { register } from "../components/UserFunctions";
+import LoginBg from "../images/backgroundImages/loginBg.png";
 
-class Authenticate extends PureComponent {
+class Register extends PureComponent {
   state = {
-    isLogin: false,
-    isAuthenticated: false,
-    loginEmail: "",
-    loginPassword: "",
-
     isRegistered: false,
     displayName: "",
     registerEmail: "",
@@ -40,69 +35,9 @@ class Authenticate extends PureComponent {
     });
   };
 
-  submitLogin = () => {
-    const userData = {
-      email: this.state.loginEmail,
-      password: this.state.loginPassword
-    };
-
-    login(userData)
-      .then(res => {
-        console.log(res);
-        console.log(res === null);
-        console.log(res.error);
-        if (res.error) {
-          console.log("Erros ");
-        }
-
-        if (res._doc != null) {
-          console.log(res);
-          this.props.history.push({
-            pathname: "/profile",
-            // search: "?query=abc",
-            state: { detail: res }
-          });
-        }
-      })
-      .catch(err => console.log(err));
-  };
-
   render() {
-    let Login = (
-      <LoginContainer>
-        <Title>Login</Title>
-        {/* {this.state.isLogin ? <p>You have successfully logged in</p> : <p>Error, please try again!</p>} */}
-        <FormContainer>
-          <TextField
-            onChange={e => {
-              this.setState({ loginEmail: e.target.value });
-            }}
-            label="Email: "
-          />
-          <TextField
-            type="password"
-            onChange={e => {
-              this.setState({ loginPassword: e.target.value });
-            }}
-            label="Password"
-          />
-          <Button onClick={this.submitLogin}>Submit</Button>
-        </FormContainer>
-        <LinkContainer>
-          <Button>Forgot password?</Button>
-          <Button
-            onClick={() => {
-              this.setState({ isAuthenticated: !this.state.isAuthenticated });
-            }}
-          >
-            Register an account
-          </Button>
-        </LinkContainer>
-      </LoginContainer>
-    );
-
     let Register = (
-      <div>
+      <div style={{ width: "100vw" }}>
         <Title>Register</Title>
         {/* {this.state.isRegistered ? <p>You have successfully registered</p> : <p>Error, please try again!</p>} */}
         <FormContainer>
@@ -139,22 +74,27 @@ class Authenticate extends PureComponent {
       </div>
     );
 
-    return <Wrapper>{this.state.isAuthenticated ? Login : Register}</Wrapper>;
+    return <Wrapper>{Register}</Wrapper>;
   }
 }
 
-export { Authenticate };
+export { Register };
 
 const Wrapper = styled.div`
   text-align: center;
+  background-image: url(${LoginBg});
+  height: 90vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
-
-const LoginContainer = styled.div``;
 
 const Title = styled.h1``;
 
 const FormContainer = styled.div`
 border: 1px solid black;
+border-radius: 20px;
 display: flex;
 flex-direction: column;
 align-items; center;
