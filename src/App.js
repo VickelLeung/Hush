@@ -11,6 +11,7 @@ import { Categories } from "./pages/Categories";
 import { CategoriesCard } from "./components/CategoriesContainer/CategoriesCard";
 import { Explore } from "./pages/Explore";
 import { PostCard } from "./components/Card/PostCard";
+import { ForgotPassword } from "./pages/ForgotPassword";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/forgotpassword" component={ForgotPassword} />
         <Route exact path="/createpost" component={CreatePost} />
 
         <Route

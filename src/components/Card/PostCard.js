@@ -4,6 +4,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
 import axios from "axios";
+
 import { one } from "../../images/backgroundImages";
 import bgImg from "../../images/backgroundImages/motoki-tonn-vV1a1Leq-dQ-unsplash.jpg";
 import TextField from "@material-ui/core/TextField";
@@ -16,7 +17,7 @@ class PostCard extends PureComponent {
     comments: [],
     username: "",
     message: "",
-    isLoggedIn: false
+    isLoggedIn: true
   };
 
   generateRandomImage = () => {};
@@ -56,7 +57,26 @@ class PostCard extends PureComponent {
   };
 
   render() {
-    let form = <div></div>;
+    let form = (
+      <FormContainer>
+        <CommentInput
+          label="Post a comment"
+          rows="4"
+          variant="standard"
+          required
+          onChange={e => {
+            this.setState({ message: e.target.value });
+          }}
+        />
+        <Button
+          style={{ margin: "2% 0" }}
+          type="submit"
+          onClick={this.postComment}
+        >
+          Comment
+        </Button>
+      </FormContainer>
+    );
 
     let message = (
       <div>
@@ -70,24 +90,30 @@ class PostCard extends PureComponent {
           return (
             <MainContainer>
               <TitleContainer>
-                <Typography color="textSecondary" component="h3">
+                <Typography style={{ color: "white" }} component="h3">
                   {item.title}
                 </Typography>
+                <Typography style={{ color: "white" }} component="h3">
+                  {item.date}
+                </Typography>
               </TitleContainer>
+
               <CardItem style={{ padding: "5%" }} variant="outlined">
                 <CardContent>
                   {/* <Typography color="textSecondary" component="h3">
                     {item.title}
                   </Typography> */}
-                  <Typography variant="body2" component="p">
-                    from: {item.user}
-                  </Typography>
-                  <Typography color="textSecondary" component="h3">
-                    {item.date}
-                  </Typography>
-                  <Typography color="textSecondary" component="h3">
-                    {item.description}
-                  </Typography>
+                  <div>
+                    <Typography variant="body2" component="p">
+                      From: {item.user}
+                    </Typography>
+                  </div>
+
+                  <div>
+                    <Typography color="textSecondary" component="h3">
+                      {item.description}
+                    </Typography>
+                  </div>
                 </CardContent>
               </CardItem>
             </MainContainer>
@@ -143,35 +169,51 @@ const Wrapper = styled.div`
 
   margin: 2% 15%;
 `;
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0 20%;
-`;
+// const Form = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   margin: 0 20%;
+// `;
 
 const MainContainer = styled.div`
-  border: 2px solid green;
-  position: relative;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
 `;
 
 const TitleContainer = styled.div`
-  position: absolute;
-  border: 2px solid black;
-  height: 15vh;
-  width: 10vw;
+  padding: 2% 0;
+  background: linear-gradient(
+    0deg,
+    rgba(124, 123, 123, 0) 0%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.5872724089635855) 0%,
+    rgba(0, 0, 0, 1) 67%
+  );
 `;
 
 const CardItem = styled.div`
-  border: 2px solid red;
-  margin: 5%;
+  margin: 0 4%;
+
+  box-shadow: 1px 5px 2px 2px #bebebe;
 `;
 
 const CommentContainer = styled.div`
-  border: 2px solid red;
   text-align: left;
 `;
 
 const User = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const FormContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 2% 4%;
+`;
+
+const CommentInput = styled(TextField)`
+  width: 100vw;
+  margin: 2% 0;
 `;

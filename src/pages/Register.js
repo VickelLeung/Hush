@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { register } from "../components/UserFunctions";
 import LoginBg from "../images/backgroundImages/loginBg.png";
+import { Link } from "react-router-dom";
 
 class Register extends PureComponent {
   state = {
@@ -17,7 +18,9 @@ class Register extends PureComponent {
     const userData = {
       email: this.state.registerEmail,
       displayName:
-        this.state.displayName === 0 ? this.state.displayName : "no-name",
+        this.state.displayName.length === 0
+          ? "no-name"
+          : this.state.displayName,
       password: this.state.registerPassword
     };
 
@@ -63,13 +66,15 @@ class Register extends PureComponent {
           <Button onClick={this.submitRegister}>Submit</Button>
         </FormContainer>
         <LinkContainer>
-          <Button
-            onClick={() => {
-              this.setState({ isAuthenticated: !this.state.isAuthenticated });
-            }}
-          >
-            Already have an account? Click to Login
-          </Button>
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            <Button
+              onClick={() => {
+                this.setState({ isAuthenticated: !this.state.isAuthenticated });
+              }}
+            >
+              Already have an account? Click to Login
+            </Button>
+          </Link>
         </LinkContainer>
       </div>
     );
