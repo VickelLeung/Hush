@@ -182,6 +182,36 @@ router.route("/add").post((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
+//Search
+router.route("/search/:param").post((req, res) => {
+  let param = req.params.param;
+  // const title = req.body.title;
+  // const category = req.body.category;
+  // const description = req.body.description;
+  // const date = Date.parse(req.body.date);
+  // const user = req.body.user;
+  // const toExpire = req.body.toExpire;
+  // let expireAt = "";
+
+  //find title
+  Post.findOne({
+    title: param
+  }).then(info => {
+    console.log("found title");
+    res.send(info);
+  });
+
+  //find username
+  this.post
+    .findOne({
+      user: param
+    })
+    .then(info => {
+      console.log("found username");
+      res.send(info);
+    });
+});
+
 //add comments
 
 module.exports = router;
