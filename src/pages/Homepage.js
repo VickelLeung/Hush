@@ -1,8 +1,12 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import { LandingInfo } from "../components/LandingInformation/LandingInfo";
 import { Button } from "@material-ui/core";
+import { bounce } from "react-animations";
+import { bounceInUp } from "react-animations";
+import { bounceInDown } from "react-animations";
+import { pulse } from "react-animations";
 
 const Homepage = () => {
   return (
@@ -120,12 +124,19 @@ const SubTitle = styled.div`
   font-size: 1.3em;
 `;
 
+const bounceAnimation = keyframes`${bounce}`;
+const bounceUpAnim = keyframes`${bounceInUp}`;
+const bounceDownAnim = keyframes`${bounceInDown}`;
+const pulseAnim = keyframes`${pulse}`;
+
 const FirstBox = styled.div`
   margin-top: 25%;
   border-radius: 20px;
   height: 20em;
   width: 20em;
   background-color: #555;
+
+  animation: 2s ${pulseAnim} infinite;
 `;
 
 const SecondBox = styled.div`
@@ -135,4 +146,5 @@ const SecondBox = styled.div`
   height: 20em;
   width: 20em;
   background-color: white;
+  animation: 3s ${pulseAnim} infinite;
 `;

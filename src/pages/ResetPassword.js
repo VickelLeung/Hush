@@ -2,9 +2,7 @@ import React, { PureComponent } from "react";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { login } from "../components/UserFunctions";
-import LoginBg from "../images/backgroundImages/loginBg.png";
-import { Link } from "react-router-dom";
+import { resetPassword } from "../components/UserFunctions";
 
 import InputLabel from "@material-ui/core/InputLabel";
 import IconButton from "@material-ui/core/IconButton";
@@ -14,44 +12,30 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import FormControl from "@material-ui/core/FormControl";
 
-class Login extends PureComponent {
+class ResetPassword extends PureComponent {
   state = {
-    isLogin: false,
-    isAuthenticated: false,
-    loginEmail: "",
-    loginPassword: "",
-    errorMsg: "",
+    id: "",
     password: "",
-    showPassword: false
+    confirmPass: ""
   };
 
-  submitLogin = () => {
+  componentDidMount = () => {
+    this.setState({ id: this.props.match.params.id });
+  };
+
+  requestReset = () => {
     const userData = {
-      email: this.state.loginEmail,
-      password: this.state.loginPassword
+      id: this.state.id,
+      password: this.state.password
     };
 
-    login(userData)
+    resetPassword(userData)
       .then(res => {
         console.log(res);
-        console.log(res === null);
-        console.log(res.error);
-        if (res.error) {
-          console.log("Erros ");
-        }
-
-        if (res._doc != null) {
-          console.log(res);
-          this.props.history.push({
-            pathname: "/profile",
-            // search: "?query=abc",
-            state: { detail: res }
-          });
-        }
       })
       .catch(err => {
         console.log(err);
-        this.setState({ errorMsg: err });
+        // this.setState({ errorMsg: err });
       });
   };
 
@@ -60,20 +44,15 @@ class Login extends PureComponent {
 
     let Login = (
       <LoginContainer>
-        <Title>Login</Title>
+        <Title>Reset your password</Title>
 
         {this.state.errorMsg ? displayError : null}
 
         <FormContainer>
-          <TextField
-            style={{ background: "white", color: "white" }}
-            onChange={e => {
-              this.setState({ loginEmail: e.target.value });
-            }}
-            label="Email: "
-          />
-
-          <FormControl fullWidth>
+          <Details>
+            Please enter your email so we can send a link to reset password
+          </Details>
+          <FormControl>
             <InputLabel htmlFor="standard-adornment-password">
               Password
             </InputLabel>
@@ -81,8 +60,8 @@ class Login extends PureComponent {
               label="Password"
               id="standard-adornment-password"
               type={this.state.showPassword ? "text" : "password"}
-              value={this.state.loginPassword}
-              onChange={e => this.setState({ loginPassword: e.target.value })}
+              value={this.state.password}
+              onChange={e => this.setState({ password: e.target.value })}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -105,28 +84,52 @@ class Login extends PureComponent {
             />
           </FormControl>
 
-          <Button onClick={this.submitLogin}>Submit</Button>
-        </FormContainer>
-        <LinkContainer>
-          <Link to="forgotten_password">
-            <Button>Forgot password?</Button>
-          </Link>
+          <FormControl>
+            <InputLabel htmlFor="standard-adornment-password">
+              Confirm Password
+            </InputLabel>
+            <Input
+              label="Password"
+              id="standard-adornment-password"
+              type={this.state.showPassword ? "text" : "password"}
+              value={this.state.confirmPass}
+              onChange={e => this.setState({ confirmPass: e.target.value })}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => {
+                      this.setState({ showPassword: !this.state.showPassword });
+                    }}
+                    onMouseDown={event => {
+                      event.preventDefault();
+                    }}
+                  >
+                    {this.state.showPassword ? (
+                      <VisibilityOff />
+                    ) : (
+                      <Visibility />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
 
-          <LinkItem to="/register">
-            <Button>Register an account</Button>
-          </LinkItem>
-        </LinkContainer>
+          <Button onClick={this.requestReset}>Submit</Button>
+          <p>{this.state.email}</p>
+        </FormContainer>
       </LoginContainer>
     );
     return <Wrapper>{Login}</Wrapper>;
   }
 }
 
-export { Login };
+export { ResetPassword };
 
 const Wrapper = styled.div`
   text-align: center;
-  background-image: url(${LoginBg});
+
   height: 90vh;
   width: 100vw;
   display: flex;
@@ -149,16 +152,7 @@ align-items; center;
 justify-content: center;
 margin: 0 30%;
 padding: 1% 2%;
+height: 20vh;
 `;
 
-const LinkContainer = styled.div`
-display: flex;
-flex-direction: row;
-align-items; center;
-justify-content: space-between;
-margin: 0 30%;
-`;
-
-const LinkItem = styled(Link)`
-  text-decoration: none;
-`;
+const Details = styled.div``;

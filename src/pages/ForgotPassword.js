@@ -3,21 +3,49 @@ import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import LoginBg from "../images/backgroundImages/loginBg.png";
+import { sendResetLink } from "../components/UserFunctions";
+import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 class ForgotPassword extends PureComponent {
   state = {
     email: "",
-    errorMsg: ""
+    errorMsg: "",
+    open: false
   };
 
-  requestReset = () => {};
+  requestReset = () => {
+    const userData = {
+      email: this.state.email
+    };
+
+    sendResetLink(userData)
+      .then(res => {
+        if (res === "No such email exist") console.log("error");
+        else this.setState({ open: true });
+        console.log(res);
+      })
+      .catch();
+  };
+
+  handleClick = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    this.setState({ open: false });
+  };
 
   render() {
     let displayError = <p>Error : {this.state.errorMsg}</p>;
 
     let Login = (
       <LoginContainer>
-        <Title>Reset your password</Title>
+        <Title>Fogotten password</Title>
 
         {this.state.errorMsg ? displayError : null}
 
@@ -33,8 +61,49 @@ class ForgotPassword extends PureComponent {
             label="Email: "
           />
 
+          <Button variant="outlined" onClick={this.handleClick}>
+            Open success snackbar
+          </Button>
+
+          <Snackbar
+            open={this.state.open}
+            autoHideDuration={3000}
+            onClose={this.handleClose}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right"
+            }}
+          >
+            <MuiAlert
+              onClose={this.handleClose}
+              severity="success"
+              elevation={6}
+              variant="filled"
+            >
+              Sucess! Please check your email for reset password link.
+            </MuiAlert>
+          </Snackbar>
+
+          {/* <Snackbar
+            open={this.state.open}
+            autoHideDuration={3000}
+            onClose={this.handleClose}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right"
+            }}
+          >
+            <MuiAlert
+              onClose={this.handleClose}
+              severity="error"
+              elevation={6}
+              variant="filled"
+            >
+              Error, we could not send an email
+            </MuiAlert>
+          </Snackbar> */}
+
           <Button onClick={this.requestReset}>Submit</Button>
-          <p>{this.state.email}</p>
         </FormContainer>
       </LoginContainer>
     );
