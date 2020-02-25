@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
@@ -31,6 +31,7 @@ class CategoriesCard extends Component {
 
   componentDidMount = () => {
     this.getCard();
+    console.log(this.state.isLoaded);
   };
 
   getCard = () => {
@@ -42,64 +43,87 @@ class CategoriesCard extends Component {
           this.setState({ card: result.data, isLoaded: true });
         });
     }, 2000);
+
+    console.log(this.state.isLoaded);
+  };
+
+  displaySkeletons = () => {
+    let Skell;
+    for (var i = 0; i < 10; i++) {
+      Skell += (
+        <SkeletonContainer>
+          <Skeleton
+            animation="wave"
+            height={10}
+            width="80%"
+            style={{ marginBottom: 6 }}
+          />
+          <Skeleton
+            animation="wave"
+            height={10}
+            width="80%"
+            style={{ marginBottom: 6 }}
+          />
+          <Skeleton animation="wave" variant="rect" />
+        </SkeletonContainer>
+      );
+    }
+
+    console.log(Skell);
+    return Skell;
   };
 
   render() {
-    // let Skeleton = (
-    //   <div>
-    //     <Skeleton animation="wave" variant="circle" width={40} height={40} />
-    //     <Skeleton
-    //       animation="wave"
-    //       height={10}
-    //       width="80%"
-    //       style={{ marginBottom: 6 }}
-    //     />
-    //     <Skeleton animation="wave" variant="rect" />
-    //   </div>
+    // let displaySkeleton = (
+
+    // <SkeletonContainer>
+    //   <Skeleton
+    //     animation="wave"
+    //     height={10}
+    //     width="80%"
+    //     style={{ marginBottom: 6 }}
+    //   />
+    //   <Skeleton
+    //     animation="wave"
+    //     height={10}
+    //     width="80%"
+    //     style={{ marginBottom: 6 }}
+    //   />
+    //   <Skeleton animation="wave" variant="rect" />
+    // </SkeletonContainer>
     // );
+
+    const displayCards = this.state.card.map(res => {
+      return this.state.isLoaded ? (
+        <LinkItem to={this.props.type + "/" + res._id}>
+          <Card
+            style={{
+              border: "1px solid black",
+              padding: "6% 8%",
+              margin: "4%"
+            }}
+            variant="outlined"
+          >
+            <CardItem>
+              <Typography variant="h3">{res.title}</Typography>
+
+              <Typography variant="h4">From: {res.user}</Typography>
+              <Typography variant="h5">{res.date}</Typography>
+              <Typography variant="h5">{res.description}</Typography>
+            </CardItem>
+          </Card>
+        </LinkItem>
+      ) : (
+        <p>Test</p>
+      );
+    });
 
     return (
       <div>
         <MainTitle>{this.props.name}</MainTitle>
+        <p>{this.state.isLoaded}</p>
         <Container>
-          {this.state.card.map(res => {
-            return this.state.isLoaded ? (
-              <LinkItem to={this.props.type + "/" + res._id}>
-                <Card
-                  style={{
-                    border: "1px solid black",
-                    padding: "6% 8%",
-                    margin: "4%"
-                  }}
-                  variant="outlined"
-                >
-                  <CardItem>
-                    <Typography variant="h3">{res.title}</Typography>
-
-                    <Typography variant="h4">From: {res.user}</Typography>
-                    <Typography variant="h5">{res.date}</Typography>
-                    <Typography variant="h5">{res.description}</Typography>
-                  </CardItem>
-                </Card>
-              </LinkItem>
-            ) : (
-              <SkeletonContainer>
-                <Skeleton
-                  animation="wave"
-                  height={10}
-                  width="80%"
-                  style={{ marginBottom: 6 }}
-                />
-                <Skeleton
-                  animation="wave"
-                  height={10}
-                  width="80%"
-                  style={{ marginBottom: 6 }}
-                />
-                <Skeleton animation="wave" variant="rect" />
-              </SkeletonContainer>
-            );
-          })}
+          {this.state.isLoaded ? this.displaySkeletons : null}
         </Container>
       </div>
     );

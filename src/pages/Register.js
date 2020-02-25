@@ -5,13 +5,15 @@ import TextField from "@material-ui/core/TextField";
 import { register } from "../components/UserFunctions";
 import LoginBg from "../images/backgroundImages/loginBg.png";
 import { Link } from "react-router-dom";
+import { SnackBars } from "../components/Snacbkar/SnackBars";
 
 class Register extends PureComponent {
   state = {
-    isRegistered: false,
     displayName: "",
     registerEmail: "",
-    registerPassword: ""
+    registerPassword: "",
+    openRegister: false,
+    openError: false
   };
 
   submitRegister = () => {
@@ -31,7 +33,12 @@ class Register extends PureComponent {
       if (res) {
         console.log(res);
         console.log("good");
-        this.props.history.push(`/login`);
+        this.setState({ openRegister: true });
+        console.log("open" + this.state.openRegister);
+
+        setTimeout(() => {
+          this.props.history.push(`/login`);
+        }, 4000);
       } else {
         console.log("bad");
       }
@@ -72,10 +79,17 @@ class Register extends PureComponent {
                 this.setState({ isAuthenticated: !this.state.isAuthenticated });
               }}
             >
-              Already have an account? Click to Login
+              Already hasdasdave an account? Click to Login
             </Button>
           </Link>
         </LinkContainer>
+
+        <SnackBars open={this.state.openRegister} severity="success">
+          Sucessfully registered! You will be redirect to login.
+        </SnackBars>
+        <SnackBars open={this.state.openError} severity="error">
+          Error, could not register. Please try again.
+        </SnackBars>
       </div>
     );
 

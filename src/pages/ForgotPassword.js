@@ -32,14 +32,6 @@ class ForgotPassword extends PureComponent {
     this.setState({ open: true });
   };
 
-  handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    this.setState({ open: false });
-  };
-
   render() {
     let displayError = <p>Error : {this.state.errorMsg}</p>;
 

@@ -13,16 +13,17 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import FormControl from "@material-ui/core/FormControl";
+import { SnackBars } from "../components/Snacbkar/SnackBars";
 
 class Login extends PureComponent {
   state = {
     isLogin: false,
-    isAuthenticated: false,
     loginEmail: "",
     loginPassword: "",
     errorMsg: "",
     password: "",
-    showPassword: false
+    showPassword: false,
+    openError: false
   };
 
   submitLogin = () => {
@@ -33,15 +34,19 @@ class Login extends PureComponent {
 
     login(userData)
       .then(res => {
-        console.log(res);
-        console.log(res === null);
-        console.log(res.error);
-        if (res.error) {
+        // console.log(res);
+        // console.log(res === null);
+        // console.log(res.error);
+
+        if (res.error || res.includes("Error")) {
           console.log("Erros ");
+          this.setState({ openError: true });
         }
 
         if (res._doc != null) {
           console.log(res);
+          this.setState({ isLogin: true });
+
           this.props.history.push({
             pathname: "/profile",
             // search: "?query=abc",
@@ -66,6 +71,7 @@ class Login extends PureComponent {
 
         <FormContainer>
           <TextField
+            type="email"
             style={{ background: "white", color: "white" }}
             onChange={e => {
               this.setState({ loginEmail: e.target.value });
@@ -118,7 +124,15 @@ class Login extends PureComponent {
         </LinkContainer>
       </LoginContainer>
     );
-    return <Wrapper>{Login}</Wrapper>;
+    return (
+      <Wrapper>
+        {Login}
+
+        <SnackBars open={this.state.openError} severity="error">
+          Error! You did not provide the right email or password.
+        </SnackBars>
+      </Wrapper>
+    );
   }
 }
 
