@@ -20,6 +20,9 @@ users.post("/register", (req, res) => {
   // let securityQuestion = req.body.securityQuestion;
   let created = today;
 
+  if (email === "" || displayName === "" || password === "")
+    res.send("Error, empty parameters");
+
   const userData = new User({
     email,
     displayName,
