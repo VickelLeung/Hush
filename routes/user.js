@@ -50,7 +50,7 @@ users.post("/register", (req, res) => {
           userData
             .save()
             .then(item => {
-              res.json({ status: userData.email + " Registered" });
+              res.json({ item });
             })
             .catch(err => res.status(400).json("Error: " + err));
         });
