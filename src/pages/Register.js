@@ -7,6 +7,9 @@ import LoginBg from "../images/backgroundImages/loginBg.png";
 import { Link } from "react-router-dom";
 import { SnackBars } from "../components/Snacbkar/SnackBars";
 
+import { connect } from "react-redux";
+import { userPostFetch } from "../actions/actions";
+
 class Register extends PureComponent {
   state = {
     displayName: "",
@@ -27,6 +30,13 @@ class Register extends PureComponent {
     };
 
     console.log(userData);
+    // const userData = {
+    //   displayName: this.state.displayName,
+    //   registerEmail: this.state.registerEmail,
+    //   registerPassword: this.state.registerPassword
+    // };
+
+    this.props.userPostFetch(userData);
 
     register(userData).then(res => {
       console.log(res);
@@ -79,7 +89,7 @@ class Register extends PureComponent {
                 this.setState({ isAuthenticated: !this.state.isAuthenticated });
               }}
             >
-              Already hasdasdave an account? Click to Login
+              Already have an account? Click to Login
             </Button>
           </Link>
         </LinkContainer>
@@ -97,7 +107,11 @@ class Register extends PureComponent {
   }
 }
 
-export { Register };
+const mapDispatchToProps = dispatch => ({
+  userPostFetch: userInfo => dispatch(userPostFetch(userInfo))
+});
+
+export default connect(null, mapDispatchToProps)(Register);
 
 const Wrapper = styled.div`
   text-align: center;
@@ -123,9 +137,6 @@ padding: 1% 2%;
 `;
 
 const LinkContainer = styled.div`
-display: flex;
-flex-direction: row;
-align-items; center;
-justify-content: space-between;
-margin: 0 30%;
+  text-align: center;
+  margin: 0 30%;
 `;

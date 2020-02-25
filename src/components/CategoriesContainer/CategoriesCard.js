@@ -123,7 +123,8 @@ class CategoriesCard extends Component {
         <MainTitle>{this.props.name}</MainTitle>
         <p>{this.state.isLoaded}</p>
         <Container>
-          {this.state.isLoaded ? this.displaySkeletons : null}
+          {/* {this.state.isLoaded ? this.displaySkeletons : null} */}
+          {displayCards}
         </Container>
       </div>
     );

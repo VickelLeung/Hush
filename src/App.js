@@ -4,7 +4,7 @@ import { Homepage } from "./pages/Homepage";
 import { Chat } from "./pages/Chat";
 import { Profile } from "./pages/Profile";
 import { Login } from "./pages/Login";
-import { Register } from "./pages/Register";
+import Register from "./pages/Register";
 import { NavigationBar } from "./components/navigation/NavigationBar";
 import { CreatePost } from "./components/CreatePost";
 import { Categories } from "./pages/Categories";
@@ -25,8 +25,12 @@ function App() {
         <Route exact path="/categories" component={Categories} />
         <Route exact path="/explore" component={Explore} />
         <Route exact path="/profile" component={Profile} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
+
+        <span>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+        </span>
+
         <Route exact path="/forgotten_password" component={ForgotPassword} />
         <Route exact path="/reset_password/:id" component={ResetPassword} />
         <Route exact path="/createpost" component={CreatePost} />
