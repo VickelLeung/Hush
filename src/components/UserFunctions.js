@@ -67,3 +67,13 @@ export const resetPassword = user => {
       console.log("Error " + err);
     });
 };
+
+export const searchInput = param => {
+  return axios
+    .get("https://hushbackend.herokuapp.com/post/search/" + param)
+    .then(response => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch(err => console.log(err));
+};

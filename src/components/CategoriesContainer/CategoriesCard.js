@@ -14,6 +14,8 @@ import bgImg from "../../images/backgroundImages/motoki-tonn-vV1a1Leq-dQ-unsplas
 
 import Skeleton from "@material-ui/lab/Skeleton";
 
+import SearchBar from "../SearchBar";
+
 class CategoriesCard extends Component {
   state = {
     card: [],
@@ -121,7 +123,8 @@ class CategoriesCard extends Component {
     return (
       <div>
         <MainTitle>{this.props.name}</MainTitle>
-        <p>{this.state.isLoaded}</p>
+        <SearchBar />
+
         <Container>
           {/* {this.state.isLoaded ? this.displaySkeletons : null} */}
           {displayCards}
