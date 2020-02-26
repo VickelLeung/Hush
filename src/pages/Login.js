@@ -14,9 +14,12 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import FormControl from "@material-ui/core/FormControl";
 import { SnackBars } from "../components/Snacbkar/SnackBars";
+import { connect } from "react-redux";
+import { userLogin } from "../actions/actions";
 
 class Login extends PureComponent {
   state = {
+    userDetail: [],
     isLogin: false,
     loginEmail: "",
     loginPassword: "",
@@ -32,32 +35,34 @@ class Login extends PureComponent {
       password: this.state.loginPassword
     };
 
-    login(userData)
-      .then(res => {
-        // console.log(res);
-        // console.log(res === null);
-        // console.log(res.error);
+    this.props.userLogin(userData);
 
-        if (res.error || res.includes("Error")) {
-          console.log("Erros ");
-          this.setState({ openError: true });
-        }
+    // login(userData)
+    //   .then(res => {
+    //     // console.log(res);
+    //     // console.log(res === null);
+    //     // console.log(res.error);
 
-        if (res._doc != null) {
-          console.log(res);
-          this.setState({ isLogin: true });
+    //     if (res.error) {
+    //       console.log("Erros ");
+    //       this.setState({ openError: true });
+    //     }
 
-          this.props.history.push({
-            pathname: "/profile",
-            // search: "?query=abc",
-            state: { detail: res }
-          });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        this.setState({ errorMsg: err });
-      });
+    //     if (res._doc != null) {
+    //       console.log(res);
+    //       this.setState({ isLogin: true });
+
+    //       this.props.history.push({
+    //         pathname: "/profile",
+    //         // search: "?query=abc",
+    //         state: { detail: res }
+    //       });
+    //     }
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //     // this.setState({ errorMsg: err });
+    //   });
   };
 
   render() {
@@ -131,12 +136,24 @@ class Login extends PureComponent {
         <SnackBars open={this.state.openError} severity="error">
           Error! You did not provide the right email or password.
         </SnackBars>
+        <p>Test {this.props.userDetail}</p>
       </Wrapper>
     );
   }
 }
 
-export { Login };
+const mapDispatchToProps = dispatch => ({
+  userLogin: userInfo => dispatch(userLogin(userInfo))
+});
+
+const mapStateToProps = state => {
+  console.log(state.currentUser._doc);
+  return {
+    userDetails: state.currentUser._doc
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 const Wrapper = styled.div`
   text-align: center;

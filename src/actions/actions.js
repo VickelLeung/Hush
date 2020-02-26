@@ -3,12 +3,12 @@ import axios from "axios";
 export const userPostFetch = user => {
   return dispatch => {
     return axios
-      .post("https://hushbackend.herokuapp.com/user/login", {
+      .post("https://hushbackend.herokuapp.com/user/register", {
         email: user.email,
         password: user.password
       })
       .then(response => {
-        localStorage.setItem("usertoken", response.data);
+        // localStorage.setItem("usertoken", response.data);
         console.log(response.data);
         dispatch(loginUser(response.data));
         // return response.data;
@@ -16,27 +16,67 @@ export const userPostFetch = user => {
       .catch(err => {
         console.log("Error " + err);
       });
-
-    //   fetch("http://localhost:3000/api/v1/users", {
-    //     method: "POST",
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       Accept: 'application/json',
-    //     },
-    //     body: JSON.stringify({user})
-    //   })
-    //     .then(resp => resp.json())
-    //     .then(data => {
-    //       if (data.message) {
-    //         // Here you should have logic to handle invalid creation of a user.
-    //         // This assumes your Rails API will return a JSON object with a key of
-    //         // 'message' if there is an error with creating the user, i.e. invalid username
-    //       } else {
-    //         localStorage.setItem("token", data.jwt)
-    //         dispatch(loginUser(data.user))
-    //       }
-    //     })
   };
+};
+
+export const userLogin = user => {
+  return dispatch => {
+    return axios
+      .post("https://hushbackend.herokuapp.com/user/login", {
+        email: user.email,
+        password: user.password
+      })
+      .then(response => {
+        localStorage.setItem("usertoken", response.data);
+        console.log("Logged");
+        console.log(response.data);
+        dispatch(loginUser(response.data));
+        // return response.data;
+      })
+      .catch(err => {
+        console.log("Error " + err);
+      });
+  };
+};
+
+export const getProfileFetch = () => {
+  //  export const getProfile = user => {
+  return dispatch => {
+    return axios
+      .get("https://hushbackend.herokuapp.com/user/profile", {})
+      .then(response => {
+        console.log(response);
+        dispatch(response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  // };
+  // return dispatch => {
+  //   const token = localStorage.token;
+  //   if (token) {
+  //     return fetch("http://localhost:3000/api/v1/profile", {
+  //       method: "GET",
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Accept: 'application/json',
+  //         'Authorization': `Bearer ${token}`
+  //       }
+  //     })
+  //       .then(resp => resp.json())
+  //       .then(data => {
+  //         if (data.message) {
+  //           // An error will occur if the token is invalid.
+  //           // If this happens, you may want to remove the invalid token.
+  //           localStorage.removeItem("token")
+  //         } else {
+  //           dispatch(loginUser(data.user))
+  //         }
+  //       })
+  //   }
+  // }
 };
 
 const loginUser = userObj => ({

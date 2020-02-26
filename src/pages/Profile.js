@@ -1,4 +1,6 @@
 import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+import { getProfileFetch } from "../actions/actions";
 
 class Profile extends PureComponent {
   state = {
@@ -7,14 +9,15 @@ class Profile extends PureComponent {
   };
 
   componentDidMount = () => {
-    let getProps = this.props.location.state.detail._doc;
-    this.setState({
-      userInfo: getProps._doc,
-      displayName: getProps.displayName
-    });
+    this.props.getProfileFetch();
+    // let getProps = this.props.location.state.detail._doc;
+    // this.setState({
+    //   userInfo: getProps._doc,
+    //   displayName: getProps.displayName
+    // }
+    // );
     // console.log(this.state.userInfo);
-
-    console.log(getProps);
+    // console.log(getProps);
   };
 
   render() {
@@ -26,4 +29,20 @@ class Profile extends PureComponent {
   }
 }
 
-export { Profile };
+// const mapDispatchToProps = dispatch => console.log(dispatch);
+// {
+//userPostFetch: userInfo => dispatch(userPostFetch(userInfo))
+// }
+
+const mapDispatchToProps = dispatch => ({
+  getProfileFetch: () => dispatch(getProfileFetch())
+});
+
+// const mapStateToProps = state => {
+//   console.log(state);
+//   // return {
+//   //    items: state.cart.items,
+//   // };
+// };
+
+export default connect(null, mapDispatchToProps)(Profile);

@@ -94,6 +94,12 @@ class Register extends PureComponent {
           </Link>
         </LinkContainer>
 
+        {/* <p>
+          {this.state.displayName}
+          {this.state.registerEmail}
+          {this.state.registerPassword}
+        </p> */}
+
         <SnackBars open={this.state.openRegister} severity="success">
           Sucessfully registered! You will be redirect to login.
         </SnackBars>
