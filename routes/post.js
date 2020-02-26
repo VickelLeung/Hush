@@ -137,6 +137,14 @@ router.route("/family/:id").get((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
+router.route("/test/:id").get((req, res) => {
+  let id = req.params.id;
+  console.log(id);
+  Post.find({ _id: id })
+    .then(post => res.json(post)) //return as json
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
 router.route("/miscellaneous").get((req, res) => {
   Post.find({ category: "miscellaneous" })
     .then(post => res.json(post)) //return as json
@@ -183,33 +191,27 @@ router.route("/add").post((req, res) => {
 });
 
 //Search
-router.route("/search/:param").post((req, res) => {
-  let param = req.params.param;
-  // const title = req.body.title;
-  // const category = req.body.category;
-  // const description = req.body.description;
-  // const date = Date.parse(req.body.date);
-  // const user = req.body.user;
-  // const toExpire = req.body.toExpire;
-  // let expireAt = "";
+// router.route("/search/:query").get((req, res) => {
+router.route("/search/:query").get((req, res) => {
+  let query = req.params.query;
+  let results = [];
+  console.log("p:" + query);
 
-  //find title
-  Post.findOne({
-    title: param
+  Post.find({
+    title: { $regex: ".*" + query + ".*", $options: "i" }
   }).then(info => {
-    console.log("found title");
-    res.send(info);
-  });
+    if (info.length !== 0) results.push(info);
+    console.log("inside title" + results);
 
-  //find username
-  this.post
-    .findOne({
-      user: param
-    })
-    .then(info => {
-      console.log("found username");
-      res.send(info);
+    Post.find({
+      description: { $regex: ".*" + query + ".*", $options: "i" }
+    }).then(info => {
+      if (info.length !== 0) results.push(info);
+
+      console.log("inside desc : " + results);
+      res.send(results);
     });
+  });
 });
 
 //add comments
