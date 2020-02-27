@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
@@ -18,41 +18,29 @@ class NavigationBar extends PureComponent {
   };
 
   render() {
-    const linkCss = { color: "white" };
-
     return (
       <Wrapper>
         <TabContainer
           value={this.state.currentTab}
           aria-label="navigation"
+          indicatorColor="secondary"
+          textColor="secondary"
           centered
         >
           <LinkItem to="/">
-            <Tab onClick={() => this.setTab(0)} style={linkCss} label="Home" />
+            <TabItem onClick={() => this.setTab(0)} label="Home" />
           </LinkItem>
 
           <LinkItem to="/explore">
-            <Tab
-              onClick={() => this.setTab(1)}
-              style={linkCss}
-              label="Explore"
-            />
+            <TabItem onClick={() => this.setTab(1)} label="Explore" />
           </LinkItem>
 
           <LinkItem to="/categories">
-            <Tab
-              onClick={() => this.setTab(2)}
-              style={linkCss}
-              label="Categories"
-            />
+            <TabItem onClick={() => this.setTab(2)} label="Categories" />
           </LinkItem>
 
           <LinkItem to="/createpost">
-            <Tab
-              onClick={() => this.setTab(3)}
-              style={linkCss}
-              label="Post secrets"
-            />
+            <TabItem onClick={() => this.setTab(3)} label="Post secrets" />
           </LinkItem>
         </TabContainer>
 
@@ -75,10 +63,10 @@ const Wrapper = styled.div`
   background-color: black;
 `;
 
-const LinkItem = styled(Link)`
+const LinkItem = styled(NavLink)`
   margin: 0 2%;
   text-decoration: none;
-  color: white;
+  color: gray;
 `;
 
 const LoginBtn = styled(Link)`
@@ -110,6 +98,18 @@ const TabContainer = styled(Tabs)`
   height: 4em;
 
   .MuiTabs-indicator {
-    background-color: gray;
+    background-color: white;
+  }
+`;
+
+const TabItem = styled(Tab)`
+  &:active {
+    color: red;
+  }
+
+  color: white;
+
+  &:hover {
+    color: #ffff;
   }
 `;

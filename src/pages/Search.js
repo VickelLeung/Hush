@@ -8,13 +8,24 @@ import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
-import { Redirect } from "react-router";
+import SearchBar from "../components/SearchBar";
 
 class Search extends PureComponent {
   state = { param: "", userInfo: [], title: [], description: [] };
 
   componentDidMount = () => {
+    this.getUrl();
+  };
+
+  //if url changed update it
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.param !== prevProps.match.params.param) {
+      console.log("Route change!");
+      this.getUrl();
+    }
+  }
+
+  getUrl = () => {
     let getProps = this.props.match.params.param;
 
     console.log("getProps: " + getProps);
@@ -26,6 +37,7 @@ class Search extends PureComponent {
           title: res[0],
           description: res[1]
         });
+        console.log(res[0]);
         console.log(res[1]);
         console.log(this.state.title);
         console.log(this.state.description);
@@ -33,68 +45,84 @@ class Search extends PureComponent {
       .catch(err => console.log(err));
 
     console.log(this.state.userInfo);
+  };
 
-    //extract title array
+  reRenderState = () => {
+    // this.getUrl();
+    console.log("re-render");
   };
 
   render() {
     return (
       <Wrapper>
-        <h1>Your search results for: "{this.state.param}"</h1>
-        <h1>Title:</h1>
+        <SearchBar onClick={this.reRenderState} />
+        <MainWrapper>
+          <h1>Your search results for: "{this.state.param}"</h1>
+          <h1>Title:</h1>
 
-        <CardContainer>
-          {this.state.title ? (
-            this.state.title.map(item => {
-              return (
-                <LinkItem to={"/categories/" + item.category + "/" + item._id}>
-                  <CardItem>
-                    <Typography variant="h3">
-                      <Highlighter
-                        searchWords={[this.state.param]}
-                        textToHighlight={item.title}
-                      />
-                    </Typography>
-                    <Typography variant="h4">
-                      Category: {item.category}
-                    </Typography>
-                    <Typography variant="h4">From: {item.user}</Typography>
-                    <Typography variant="h5">{item.date}</Typography>
-                    <Typography variant="h5">{item.description}</Typography>
-                  </CardItem>
-                </LinkItem>
-              );
-            })
-          ) : (
-            <p>No search founds with title</p>
-          )}
-        </CardContainer>
-        <h1>Description</h1>
+          <CardContainer>
+            {this.state.title.length != 0 ? (
+              this.state.title.map(item => {
+                return (
+                  <LinkItem
+                    to={"/categories/" + item.category + "/" + item._id}
+                  >
+                    <CardItem>
+                      <Typography variant="h3">
+                        <Highlighter
+                          searchWords={[this.state.param]}
+                          textToHighlight={item.title}
+                        />
+                      </Typography>
+                      <Typography variant="h4">
+                        Category: {item.category}
+                      </Typography>
+                      <Typography variant="h4">From: {item.user}</Typography>
+                      <Typography variant="h5">{item.date}</Typography>
+                      <Typography variant="h5">{item.description}</Typography>
+                    </CardItem>
+                  </LinkItem>
+                );
+              })
+            ) : (
+              <p>
+                No search found for <b>{this.state.param}</b> as title
+              </p>
+            )}
+          </CardContainer>
+          <h1>Description:</h1>
 
-        <CardContainer>
-          {this.state.description ? (
-            this.state.description.map(item => {
-              return (
-                <LinkItem to={"/categories/" + item.category + "/" + item._id}>
-                  <CardItem>
-                    <Typography variant="h3">{item.title}</Typography>
-                    <Typography variant="h4">From: {item.category}</Typography>
-                    <Typography variant="h4">From: {item.user}</Typography>
-                    <Typography variant="h5">{item.date}</Typography>
-                    <Typography variant="h5">
-                      <Highlighter
-                        searchWords={[this.state.param]}
-                        textToHighlight={item.description}
-                      />
-                    </Typography>
-                  </CardItem>
-                </LinkItem>
-              );
-            })
-          ) : (
-            <p>No search founds with description</p>
-          )}
-        </CardContainer>
+          <CardContainer>
+            {this.state.description.length != 0 ? (
+              this.state.description.map(item => {
+                return (
+                  <LinkItem
+                    to={"/categories/" + item.category + "/" + item._id}
+                  >
+                    <CardItem>
+                      <Typography variant="h3">{item.title}</Typography>
+                      <Typography variant="h4">
+                        From: {item.category}
+                      </Typography>
+                      <Typography variant="h4">From: {item.user}</Typography>
+                      <Typography variant="h5">{item.date}</Typography>
+                      <Typography variant="h5">
+                        <Highlighter
+                          searchWords={[this.state.param]}
+                          textToHighlight={item.description}
+                        />
+                      </Typography>
+                    </CardItem>
+                  </LinkItem>
+                );
+              })
+            ) : (
+              <p>
+                No search founds for <b>{this.state.param}</b> as description
+              </p>
+            )}
+          </CardContainer>
+        </MainWrapper>
       </Wrapper>
     );
   }
@@ -102,7 +130,9 @@ class Search extends PureComponent {
 
 export { Search };
 
-const Wrapper = styled.div`
+const Wrapper = styled.div``;
+
+const MainWrapper = styled.div`
   text-align: left;
   margin: 0 25%;
 `;

@@ -12,6 +12,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 // import { Select } from 'antd';
+import createPostBg from "../images/backgroundImages/createPostBg.png";
 
 import axios from "axios";
 
@@ -81,101 +82,103 @@ class CreatePost extends Component {
   render() {
     return (
       <Wrapper>
-        <InfoContainer>
-          <Title>Share your secret</Title>
-          <Title>Fill the form to let everyone know about your secrets</Title>
-        </InfoContainer>
-        <FormContainer>
-          <LabelText>Write a title</LabelText>
-          <TextField
-            id="standard-multiline-static"
-            onChange={e => this.setState({ title: e.target.value })}
-            required
-          />
-          <LabelText>Choose a categories</LabelText>
-          <Select
-            labelId="demo-customized-select-label"
-            id="demo-customized-select"
-            onChange={this.handleChange}
-            required
-          >
-            <MenuItem value={"love"}>Love</MenuItem>
-            <MenuItem value={"work"}>Work</MenuItem>
-            <MenuItem value={"school"}>School</MenuItem>
-            <MenuItem value={"dating"}>Dating</MenuItem>
-            <MenuItem value={"finance"}>Finance</MenuItem>
-            <MenuItem value={"family"}>Family</MenuItem>
-          </Select>
-          <LabelText>Share your secret below</LabelText>
-          <TextField
-            id="standard-multiline-static"
-            multiline
-            rows="4"
-            onChange={e => this.setState({ description: e.target.value })}
-            required
-          />
-          <LabelText>Stay anonymous?</LabelText>
-          <div>
-            <Label>Yes</Label>
-            <Radio
-              checked={this.state.checked === "a"}
-              onChange={e => {
-                this.setState({ checked: "a" });
-              }}
-              value="a"
-              color="default"
-              name="radio-button-demo"
+        <MainContainer>
+          <InfoContainer>
+            <Title>Share your secret</Title>
+            <Title>Fill the form to let everyone know about your secrets</Title>
+          </InfoContainer>
+          <FormContainer>
+            <LabelText>Write a title</LabelText>
+            <TextField
+              id="standard-multiline-static"
+              onChange={e => this.setState({ title: e.target.value })}
+              required
             />
-            <Label>No</Label>
-            <Radio
-              checked={this.state.checked === "b"}
-              onChange={e => {
-                this.setState({ checked: "b" });
-              }}
-              value="b"
-              color="default"
-              name="radio-button-demo"
-            />
-
-            {this.state.checked === "b" ? (
-              <TextField
-                id="standard-multiline-static"
-                onChange={e => this.setState({ user: e.target.value })}
-                label="Enter username"
-              />
-            ) : (
-              <TextField
-                id="standard-multiline-static"
-                onChange={e => this.setState({ user: e.target.value })}
-                disabled
-              />
-            )}
-          </div>
-
-          <SubmitBtn onClick={this.submit}>Submit</SubmitBtn>
-        </FormContainer>
-
-        <Dialog open={this.state.isModal} onClose={this.state.isModal}>
-          <DialogTitle id="alert-dialog-title">{"Sucess!"}</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Your post have been successfully posted under the categorie:{" "}
-              {this.state.category}!
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            {/* Add link to post? */}
-            <Button
-              onClick={() => {
-                this.setState({ isModal: false });
-              }}
-              color="primary"
-              autoFocus
+            <LabelText>Choose a categories</LabelText>
+            <Select
+              labelId="demo-customized-select-label"
+              id="demo-customized-select"
+              onChange={this.handleChange}
+              required
             >
-              Done
-            </Button>
-          </DialogActions>
-        </Dialog>
+              <MenuItem value={"love"}>Love</MenuItem>
+              <MenuItem value={"work"}>Work</MenuItem>
+              <MenuItem value={"school"}>School</MenuItem>
+              <MenuItem value={"dating"}>Dating</MenuItem>
+              <MenuItem value={"finance"}>Finance</MenuItem>
+              <MenuItem value={"family"}>Family</MenuItem>
+            </Select>
+            <LabelText>Share your secret below</LabelText>
+            <TextField
+              id="standard-multiline-static"
+              multiline
+              rows="4"
+              onChange={e => this.setState({ description: e.target.value })}
+              required
+            />
+            <LabelText>Stay anonymous?</LabelText>
+            <div>
+              <Label>Yes</Label>
+              <Radio
+                checked={this.state.checked === "a"}
+                onChange={e => {
+                  this.setState({ checked: "a" });
+                }}
+                value="a"
+                color="default"
+                name="radio-button-demo"
+              />
+              <Label>No</Label>
+              <Radio
+                checked={this.state.checked === "b"}
+                onChange={e => {
+                  this.setState({ checked: "b" });
+                }}
+                value="b"
+                color="default"
+                name="radio-button-demo"
+              />
+
+              {this.state.checked === "b" ? (
+                <TextField
+                  id="standard-multiline-static"
+                  onChange={e => this.setState({ user: e.target.value })}
+                  label="Enter username"
+                />
+              ) : (
+                <TextField
+                  id="standard-multiline-static"
+                  onChange={e => this.setState({ user: e.target.value })}
+                  disabled
+                />
+              )}
+            </div>
+
+            <SubmitBtn onClick={this.submit}>Submit</SubmitBtn>
+          </FormContainer>
+
+          <Dialog open={this.state.isModal} onClose={this.state.isModal}>
+            <DialogTitle id="alert-dialog-title">{"Sucess!"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Your post have been successfully posted under the categorie:{" "}
+                {this.state.category}!
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              {/* Add link to post? */}
+              <Button
+                onClick={() => {
+                  this.setState({ isModal: false });
+                }}
+                color="primary"
+                autoFocus
+              >
+                Done
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </MainContainer>
       </Wrapper>
     );
   }
@@ -184,19 +187,25 @@ class CreatePost extends Component {
 export { CreatePost };
 
 const Wrapper = styled.div`
-  margin: 3% 0;
-  display: flex;
-  flex-direction: row;
+  height: 82vh;
+  width: 100vw;
+  background: url(${createPostBg});
 `;
 
 const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
-  margin: 0 20%;
+  margin: 0 12%;
   border: 1px solid black;
   padding: 2% 4%;
 
   width: 50vw;
+`;
+
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 4% 0;
 `;
 
 const Label = styled.label`
@@ -214,6 +223,11 @@ const LabelText = styled(Label)`
 
 const InfoContainer = styled.div`
   width: 50vw;
+  height: 100%;
+  margin: 2% 4%;
+  background: white;
+  border: 1px solid black;
+  color: black;
 `;
 
 const SubmitBtn = styled(Button)`

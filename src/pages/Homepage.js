@@ -7,6 +7,10 @@ import { bounce } from "react-animations";
 import { bounceInUp } from "react-animations";
 import { bounceInDown } from "react-animations";
 import { pulse } from "react-animations";
+import Lock from "../images/homepageIcons/lock.png";
+import Confidential from "../images/homepageIcons/confidential.png";
+import Anonymous from "../images/homepageIcons/anonymous.png";
+import Share from "../images/homepageIcons/share.png";
 
 const Homepage = () => {
   return (
@@ -23,33 +27,19 @@ const Homepage = () => {
           Share your secret to the world. Don’t just keep it, let everyone know
           about it
         </SubTitle>
+        <BtnContainer>
+          <Link style={{ textDecoration: "none" }} to="/createpost">
+            <LinkBtn variant="outlined">Start sharing your secret now!</LinkBtn>
+          </Link>
+        </BtnContainer>
       </TitleContainer>
 
-      <FirstBox></FirstBox>
-
-      <SecondBox></SecondBox>
-
-      {/* <MainContainer>
-            <Title>Welcome to Hush</Title>
-            <Description>
-            Have you ever wanted to express your secrets but could not because you did not want others to know? Well Hush is an 
-            application to help you fufill your need with sharing any secrets to the world.
-            <br />
-            We can ensure that all your secret share with us will be anonymously and you can also discover other people secrets to your benefits.
-            </Description>
-           </MainContainer>
-            <InfoContainer>
-                <Bar />
-                    <CreateContainer>
-                        <SubTitle>Share you idea, secret, or anything to the world!</SubTitle>
-                        <LinkButton to="/createpost"><Button variant="outlined">Start sharing now</Button></LinkButton>
-                    </CreateContainer>  
-                <Bar />
-                    <LandingContainer>
-                        <LandingInfo />
-                    </LandingContainer>
-                              
-            </InfoContainer> */}
+      <BoxContainer>
+        <WhiteBox>{/* <Image src={Lock} /> */}</WhiteBox>
+        <BlackBox>{/* <Image src={Confidential} /> */}</BlackBox>
+        <BlackBox>{/* <Image src={Anonymous} /> */}</BlackBox>
+        <WhiteBox>{/* <Image src={Share} /> */}</WhiteBox>
+      </BoxContainer>
     </Wrapper>
   );
 };
@@ -119,7 +109,11 @@ const Line = styled.div`
   margin-right: 15%;
 `;
 
-const TitleContainer = styled.div``;
+const TitleContainer = styled.div`
+  text-align: left;
+  align-self: start;
+  margin: 10% 0;
+`;
 const SubTitle = styled.div`
   font-size: 1.3em;
 `;
@@ -129,22 +123,46 @@ const bounceUpAnim = keyframes`${bounceInUp}`;
 const bounceDownAnim = keyframes`${bounceInDown}`;
 const pulseAnim = keyframes`${pulse}`;
 
-const FirstBox = styled.div`
-  margin-top: 25%;
+const BlackBox = styled.div`
+  margin: 2%;
   border-radius: 20px;
-  height: 20em;
-  width: 20em;
+  height: 12em;
+  width: 12em;
   background-color: #555;
 
   animation: 2s ${pulseAnim} infinite;
 `;
 
-const SecondBox = styled.div`
-  margin-bottom: 25%;
+const WhiteBox = styled.div`
+  margin: 2%;
   border: 2px solid black;
   border-radius: 20px;
-  height: 20em;
-  width: 20em;
+  height: 12em;
+  width: 12em;
   background-color: white;
   animation: 3s ${pulseAnim} infinite;
 `;
+
+const BtnContainer = styled.div`
+  text-align: center;
+  margin: 4% 0;
+`;
+
+const LinkBtn = styled(Button)`
+  MuiButtonBase-root {
+    padding: 5%;
+  }
+`;
+
+const BoxContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  height: 30vh;
+  width: 30vw;
+`;
+
+// const Image = styled.img`
+//   height: 80%;
+//   width: 80%;
+//   object-fit: contain;
+// `;

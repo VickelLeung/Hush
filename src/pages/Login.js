@@ -70,7 +70,9 @@ class Login extends PureComponent {
 
     let Login = (
       <LoginContainer>
-        <Title>Login</Title>
+        <Title>
+          Login <i className="fas fa-sign-in-alt" />
+        </Title>
 
         {this.state.errorMsg ? displayError : null}
 

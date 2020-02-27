@@ -12,7 +12,9 @@ class SearchBar extends PureComponent {
   };
 
   SubmitSearch = () => {
-    console.log("tet");
+    //re-render after onclick
+    // this.setState(this.state);
+    // console.log("test: " + this.state.searchInput);
     this.props.history.push({
       pathname: "/search/" + this.state.searchInput
     });

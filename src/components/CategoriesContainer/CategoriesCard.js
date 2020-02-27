@@ -101,8 +101,7 @@ class CategoriesCard extends Component {
           <Card
             style={{
               border: "1px solid black",
-              padding: "6% 8%",
-              margin: "4%"
+              padding: "6% 8%"
             }}
             variant="outlined"
           >
@@ -159,7 +158,8 @@ const MainTitle = styled.div`
 const LinkItem = styled(Link)`
   text-decoration: none;
   color: black;
-  flex: 0 0 50%;
+  flex: 0 0 45%;
+  margin: 1% 1%;
 
   &:hover {
     opacity: 0.4;
