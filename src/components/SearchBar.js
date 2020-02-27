@@ -18,15 +18,22 @@ class SearchBar extends PureComponent {
     });
   };
 
+  onKeyPress = e => {
+    if (e.which === 13) {
+      this.SubmitSearch();
+    }
+  };
+
   render() {
     return (
       <SearchContainer>
-        <InputBase
+        <InputContainer
           placeholder="Search posts"
+          onKeyPress={this.onKeyPress}
           onChange={e => {
             this.setState({ searchInput: e.target.value });
           }}
-        />
+        ></InputContainer>
         <IconButton type="submit" aria-label="search">
           <SearchIcon onClick={this.SubmitSearch} />
         </IconButton>
@@ -41,4 +48,14 @@ const SearchContainer = styled.div`
   text-align: right;
   margin: 2%; 10%;
 
+`;
+
+const InputContainer = styled(InputBase)`
+  border: 1px solid gray;
+  padding: 0 1%;
+    border-radius: 5px;
+  &:hover {
+    border: 1px solid black;
+  }
+  }
 `;
