@@ -200,13 +200,22 @@ router.route("/search/:query").get((req, res) => {
   Post.find({
     title: { $regex: ".*" + query + ".*", $options: "i" }
   }).then(info => {
-    if (info.length !== 0) results.push(info);
-    console.log("inside title" + results);
+    if (info.length !== 0) {
+      results.push(info);
+    } else {
+      let temp = [];
+      results.push(temp);
+    }
 
     Post.find({
       description: { $regex: ".*" + query + ".*", $options: "i" }
     }).then(info => {
-      if (info.length !== 0) results.push(info);
+      if (info.length !== 0) {
+        results.push(info);
+      } else {
+        let temp = [];
+        results.push(temp);
+      }
 
       console.log("inside desc : " + results);
       res.send(results);
