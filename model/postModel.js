@@ -12,7 +12,7 @@ const postSchema = new Schema({
   user: { type: String, require: true },
   category: { type: String, require: true },
   description: { type: String, require: true },
-  date: { type: Date, require: true },
+  date: { type: String, default: Date.now, require: true },
   toExpire: { type: Boolean, default: true },
   expireAt: {
     type: Date,

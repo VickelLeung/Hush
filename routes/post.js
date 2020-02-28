@@ -1,161 +1,160 @@
 const router = require("express").Router();
 let Post = require("../model/postModel");
 
-router.route("/").get((req, res) => {
+// update = (req, res) => {
+//   // let id = req.params.id;
+//   const username = req.body.username;
+//   const message = req.body.message;
+//   console.log(req.params.id);
+//   let update = [{ username: username, message: message }];
+//   Post.findByIdAndUpdate({ _id: req.params.id }, { $push: { comment: update } })
+//     .then(post => res.json(post)) //return as json
+//     .catch(err => res.status(400).json("Error: " + err));
+// };
+
+getInfo = (req, res) => {
   Post.find()
     .then(post => res.json(post)) //return as json
     .catch(err => res.status(400).json("Error: " + err));
+};
+
+getInfoCategory = (request, resources, userCategory) => {
+  Post.find({ category: userCategory })
+    .then(post => resources.json(post)) //return as json
+    .catch(err => resources.status(400).json("Error: " + err));
+};
+
+getPostId = (request, resources, id) => {
+  Post.find({ _id: id })
+    .then(post => resources.json(post)) //return as json
+    .catch(err => resources.status(400).json("Error: " + err));
+};
+
+commentPost = (req, res, id) => {
+  const username = req.body.username;
+  const message = req.body.message;
+
+  let update = [{ username: username, message: message }];
+  Post.findByIdAndUpdate({ _id: id }, { $push: { comment: update } })
+    .then(post => res.json(post)) //return as json
+    .catch(err => res.status(400).json("Error: " + err));
+};
+
+// miscellaneous" ,"family", "finance", "dating", "work", "school", "family", "employment", "love"
+
+router.route("/").get((req, res) => {
+  getInfo(req, res);
 });
 
 // Categories endpoints
 router.route("/love").get((req, res) => {
-  Post.find({ category: "love" })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  getInfoCategory(req, res, "love");
 });
 
 router.route("/love/:id").get((req, res) => {
   let id = req.params.id;
-  Post.find({ _id: id })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+
+  getPostId(req, res, id);
 });
 
 router.route("/love/comment/:id").put((req, res) => {
-  // let id = req.params.id;
-  const username = req.body.username;
-  const message = req.body.message;
-  console.log(req.params.id);
-  let update = [{ username: username, message: message }];
-  Post.findByIdAndUpdate({ _id: req.params.id }, { $push: { comment: update } })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  commentPost(req, res, req.params.id);
 });
 
-//REVISE
-// router.route('/love/:_id').post((req, res)=>{
-//     id = req.body.id;
-//     let getComment =[];
-
-//     Post.find(id, ()=>{
-//         //add array
-//         comments.push(getComment);
-//     })
-
-//     Post.save();
-
-// })
-
 router.route("/employment").get((req, res) => {
-  Post.find({ category: "employment" })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  getInfoCategory(req, res, "employment");
 });
 
 router.route("/employment/:id").get((req, res) => {
-  let id = req.params.id;
-  Post.find({ _id: id })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  getPostId(req, res, req.params.id);
+});
+
+router.route("/employment/comment/:id").put((req, res) => {
+  commentPost(req, res, req.params.id);
 });
 
 router.route("/family").get((req, res) => {
-  Post.find({ category: "family" })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  getInfoCategory(req, res, "family");
 });
 
 router.route("/family/:id").get((req, res) => {
-  let id = req.params.id;
-  Post.find({ _id: id })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  getPostId(req, res, req.params.id);
+});
+
+router.route("/family/comment/:id").put((req, res) => {
+  commentPost(req, res, req.params.id);
 });
 
 router.route("/school").get((req, res) => {
-  Post.find({ category: "school" })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  getInfoCategory(req, res, "school");
 });
 
 router.route("/school/:id").get((req, res) => {
-  let id = req.params.id;
-  Post.find({ _id: id })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  getPostId(req, res, req.params.id);
+});
+
+router.route("/school/comment/:id").put((req, res) => {
+  commentPost(req, res, req.params.id);
 });
 
 router.route("/work").get((req, res) => {
-  Post.find({ category: "work" })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  getInfoCategory(req, res, "work");
 });
 
 router.route("/work/:id").get((req, res) => {
-  let id = req.params.id;
-  Post.find({ _id: id })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  getPostId(req, res, req.params.id);
+});
+
+router.route("/work/comment/:id").put((req, res) => {
+  commentPost(req, res, req.params.id);
 });
 
 router.route("/dating").get((req, res) => {
-  Post.find({ category: "dating" })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  getInfoCategory(req, res, "dating");
 });
 
 router.route("/dating/:id").get((req, res) => {
-  let id = req.params.id;
-  Post.find({ _id: id })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  getPostId(req, res, req.params.id);
+});
+
+router.route("/dating/comment/:id").put((req, res) => {
+  commentPost(req, res, req.params.id);
 });
 
 router.route("/finance").get((req, res) => {
-  Post.find({ category: "finance" })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  getInfoCategory(req, res, "finance");
 });
 
 router.route("/finance/:id").get((req, res) => {
-  let id = req.params.id;
-  Post.find({ _id: id })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  getPostId(req, res, req.params.id);
+});
+
+router.route("/finance/comment/:id").put((req, res) => {
+  commentPost(req, res, req.params.id);
 });
 
 router.route("/family").get((req, res) => {
-  Post.find({ category: "family" })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  getInfoCategory(req, res, "family");
 });
 
 router.route("/family/:id").get((req, res) => {
-  let id = req.params.id;
-  Post.find({ _id: id })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  getPostId(req, res, req.params.id);
 });
 
-router.route("/test/:id").get((req, res) => {
-  let id = req.params.id;
-  console.log(id);
-  Post.find({ _id: id })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+router.route("/family/comment/:id").put((req, res) => {
+  commentPost(req, res, req.params.id);
 });
 
 router.route("/miscellaneous").get((req, res) => {
-  Post.find({ category: "miscellaneous" })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  getInfoCategory(req, res, "miscellaneous");
 });
 
 router.route("/miscellaneous/:id").get((req, res) => {
-  let id = req.params.id;
-  Post.find({ _id: id })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+  getPostId(req, res, req.params.id);
+});
+
+router.route("/miscellaneous/comment/:id").put((req, res) => {
+  commentPost(req, res, req.params.id);
 });
 
 // End of categories endpoints
@@ -191,7 +190,6 @@ router.route("/add").post((req, res) => {
 });
 
 //Search
-// router.route("/search/:query").get((req, res) => {
 router.route("/search/:query").get((req, res) => {
   let query = req.params.query;
   let results = [];
@@ -223,6 +221,17 @@ router.route("/search/:query").get((req, res) => {
   });
 });
 
-//add comments
-
 module.exports = router;
+
+// [
+//   '{{repeat(10, 10)}}',{
+//    title: '{{company().toUpperCase()}}',
+//      user: '{{firstName()}}' ,
+//     category:'miscellaneous',
+//     date: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm")}}',
+
+//       description:'{{lorem(0.5, "paragraphs")}}',
+//       toExpire: '{{false}}'
+//   }
+
+// ]
