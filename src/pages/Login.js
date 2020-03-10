@@ -121,7 +121,7 @@ class Login extends PureComponent {
           <Button onClick={this.submitLogin}>Submit</Button>
         </FormContainer>
         <LinkContainer>
-          <Link to="forgotten_password">
+          <Link style={{ textDecoration: "none" }} to="forgotten_password">
             <Button>Forgot password?</Button>
           </Link>
 
@@ -138,7 +138,7 @@ class Login extends PureComponent {
         <SnackBars open={this.state.openError} severity="error">
           Error! You did not provide the right email or password.
         </SnackBars>
-        <p>Test {this.props.userDetail}</p>
+        {/* <p>Test {this.props.userDetail}</p> */}
       </Wrapper>
     );
   }

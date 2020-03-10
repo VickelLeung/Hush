@@ -60,6 +60,29 @@ function App() {
           path="/categories/school"
           component={() => <CategoriesCard type="school" name="School" />}
         />
+        <Route
+          exact
+          path="/categories/work"
+          component={() => <CategoriesCard type="work" name="Work" />}
+        />
+        <Route
+          exact
+          path="/categories/dating"
+          component={() => <CategoriesCard type="dating" name="Dating" />}
+        />
+        <Route
+          exact
+          path="/categories/finance"
+          component={() => <CategoriesCard type="finance" name="Finance" />}
+        />
+
+        <Route
+          exact
+          path="/categories/miscellaneous"
+          component={() => (
+            <CategoriesCard type="miscellaneous" name="Miscellaneous" />
+          )}
+        />
 
         <Route
           path="/categories/love/:id"

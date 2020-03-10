@@ -19,6 +19,7 @@ import SearchBar from "../SearchBar";
 class CategoriesCard extends Component {
   state = {
     card: [],
+    skeletonCard: [],
     picture: "",
     numberOfCards: 0,
     isLoaded: false
@@ -32,8 +33,10 @@ class CategoriesCard extends Component {
   };
 
   componentDidMount = () => {
+    this.generateSkeletons();
     this.getCard();
     console.log(this.state.isLoaded);
+    console.log(this.state.skeletonCard);
   };
 
   getCard = () => {
@@ -49,54 +52,38 @@ class CategoriesCard extends Component {
     console.log(this.state.isLoaded);
   };
 
-  displaySkeletons = () => {
-    let Skell;
-    for (var i = 0; i < 10; i++) {
-      Skell += (
-        <SkeletonContainer>
-          <Skeleton
-            animation="wave"
-            height={10}
-            width="80%"
-            style={{ marginBottom: 6 }}
-          />
-          <Skeleton
-            animation="wave"
-            height={10}
-            width="80%"
-            style={{ marginBottom: 6 }}
-          />
-          <Skeleton animation="wave" variant="rect" />
-        </SkeletonContainer>
-      );
+  generateSkeletons = () => {
+    let tempArr = [];
+    for (let i = 0; i < 10; i++) {
+      tempArr.push(i);
     }
-
-    console.log(Skell);
-    return Skell;
+    console.log(tempArr);
+    this.setState({ skeletonCard: this.state.skeletonCard.concat(tempArr) });
   };
 
   render() {
-    // let displaySkeleton = (
-
-    // <SkeletonContainer>
-    //   <Skeleton
-    //     animation="wave"
-    //     height={10}
-    //     width="80%"
-    //     style={{ marginBottom: 6 }}
-    //   />
-    //   <Skeleton
-    //     animation="wave"
-    //     height={10}
-    //     width="80%"
-    //     style={{ marginBottom: 6 }}
-    //   />
-    //   <Skeleton animation="wave" variant="rect" />
-    // </SkeletonContainer>
-    // );
+    const displaySkeleton = this.state.skeletonCard.map(item => {
+      return (
+        <SkeletonContainer>
+          <Skeleton
+            animation="wave"
+            height={20}
+            width="100%"
+            style={{ marginBottom: 6 }}
+          />
+          <Skeleton
+            animation="wave"
+            height={30}
+            width="100%"
+            style={{ marginBottom: 6 }}
+          />
+          <Skeleton height={50} animation="wave" variant="rect" />
+        </SkeletonContainer>
+      );
+    });
 
     const displayCards = this.state.card.map(res => {
-      return this.state.isLoaded ? (
+      return (
         <LinkItem to={this.props.type + "/" + res._id}>
           <Card
             style={{
@@ -114,8 +101,6 @@ class CategoriesCard extends Component {
             </CardItem>
           </Card>
         </LinkItem>
-      ) : (
-        <p>Test</p>
       );
     });
 
@@ -125,8 +110,7 @@ class CategoriesCard extends Component {
         <SearchBar />
 
         <Container>
-          {/* {this.state.isLoaded ? this.displaySkeletons : null} */}
-          {displayCards}
+          {this.state.isLoaded ? displayCards : displaySkeleton}
         </Container>
       </div>
     );
@@ -172,7 +156,7 @@ const CardItem = styled.div``;
 
 const SkeletonContainer = styled.div`
   border: 1px solid gray;
-  flex: 0 0 40%;
-  padding: 6% 8%;
-  margin: 4%;
+  flex: 0 0 35%;
+  margin: 1% 1%;
+  padding: 2%;
 `;

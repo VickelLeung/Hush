@@ -89,7 +89,7 @@ class CreatePost extends Component {
           </InfoContainer>
           <FormContainer>
             <LabelText>Write a title</LabelText>
-            <TextField
+            <TextInput
               id="standard-multiline-static"
               onChange={e => this.setState({ title: e.target.value })}
               required
@@ -109,7 +109,7 @@ class CreatePost extends Component {
               <MenuItem value={"family"}>Family</MenuItem>
             </Select>
             <LabelText>Share your secret below</LabelText>
-            <TextField
+            <TextInput
               id="standard-multiline-static"
               multiline
               rows="4"
@@ -140,7 +140,7 @@ class CreatePost extends Component {
               />
 
               {this.state.checked === "b" ? (
-                <TextField
+                <TextInput
                   id="standard-multiline-static"
                   onChange={e => this.setState({ user: e.target.value })}
                   label="Enter username"
@@ -193,12 +193,12 @@ const Wrapper = styled.div`
 `;
 
 const FormContainer = styled.form`
+  background: white;
   display: flex;
   flex-direction: column;
   margin: 0 12%;
   border: 1px solid black;
   padding: 2% 4%;
-
   width: 50vw;
 `;
 
@@ -233,5 +233,11 @@ const InfoContainer = styled.div`
 const SubmitBtn = styled(Button)`
   .MuiButton-label {
     margin: 4%;
+  }
+`;
+
+const TextInput = styled(TextField)`
+  .MuiInput-underline:after {
+    border-bottom: 2px solid black;
   }
 `;

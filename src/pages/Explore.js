@@ -106,34 +106,43 @@ class Explore extends PureComponent {
         <h3>Category : {this.state.category}</h3>
 
         <MainContainer>
-          <CardContainer>
-            {this.state.card.map((res, index) => {
-              return (
-                <Link
-                  style={{ textDecoration: "none" }}
-                  to={"/categories/" + res.category + "/" + res._id}
-                >
-                  <Card
-                    key={index}
-                    style={{
-                      border: "1px solid black",
-                      padding: "6% 8%",
-                      margin: "4%"
-                    }}
-                    variant="outlined"
+          <Container>
+            <ExploreBtn
+              style={{ margin: "0 4%" }}
+              variant="outlined"
+              onClick={this.nextExplore}
+            >
+              Explore another posts
+            </ExploreBtn>
+            <CardContainer>
+              {this.state.card.map((res, index) => {
+                return (
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    to={"/categories/" + res.category + "/" + res._id}
                   >
-                    <div>
-                      <Typography variant="h3">{res.title}</Typography>
+                    <Card
+                      key={index}
+                      style={{
+                        border: "1px solid black",
+                        padding: "6% 8%",
+                        margin: "4%"
+                      }}
+                      variant="outlined"
+                    >
+                      <div>
+                        <Typography variant="h3">{res.title}</Typography>
 
-                      <Typography variant="h4">From: {res.user}</Typography>
-                      <Typography variant="h5">{res.date}</Typography>
-                      <Typography variant="h5">{res.description}</Typography>
-                    </div>
-                  </Card>
-                </Link>
-              );
-            })}
-          </CardContainer>
+                        <Typography variant="h4">From: {res.user}</Typography>
+                        <Typography variant="h5">{res.date}</Typography>
+                        <Typography variant="h5">{res.description}</Typography>
+                      </div>
+                    </Card>
+                  </Link>
+                );
+              })}
+            </CardContainer>
+          </Container>
 
           {/* Keep a history of posts */}
           <HistoryContainer>
@@ -161,10 +170,6 @@ class Explore extends PureComponent {
             </Element>
           </HistoryContainer>
         </MainContainer>
-
-        <ExploreBtn variant="outlined" onClick={this.nextExplore}>
-          Explore another posts
-        </ExploreBtn>
       </div>
     );
   }
@@ -172,7 +177,11 @@ class Explore extends PureComponent {
 
 export { Explore };
 
-const ExploreBtn = styled(Button)``;
+const ExploreBtn = styled(Button)`
+  .MuiButton-root {
+    margin: 0 4%;
+  }
+`;
 const MainContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -189,6 +198,11 @@ const CardContainer = styled.div`
 const Bar = styled.div`
   border-bottom: 1px solid black;
   margin: 0 5%;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 // <Element style={{

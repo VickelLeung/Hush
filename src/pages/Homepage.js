@@ -110,9 +110,9 @@ const Line = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  text-align: left;
+  text-align: center;
   align-self: start;
-  margin: 10% 0;
+  margin: 10% 4%;
 `;
 const SubTitle = styled.div`
   font-size: 1.3em;
