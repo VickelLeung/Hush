@@ -186,4 +186,8 @@ users.get("/profile", (req, res) => {
     });
 });
 
+// find user posts
+
+users.get("/profile/post", (req, res) => {});
+
 module.exports = users;

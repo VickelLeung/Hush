@@ -1,17 +1,6 @@
 const router = require("express").Router();
 let Post = require("../model/postModel");
 
-// update = (req, res) => {
-//   // let id = req.params.id;
-//   const username = req.body.username;
-//   const message = req.body.message;
-//   console.log(req.params.id);
-//   let update = [{ username: username, message: message }];
-//   Post.findByIdAndUpdate({ _id: req.params.id }, { $push: { comment: update } })
-//     .then(post => res.json(post)) //return as json
-//     .catch(err => res.status(400).json("Error: " + err));
-// };
-
 getInfo = (req, res) => {
   Post.find()
     .then(post => res.json(post)) //return as json
@@ -40,8 +29,6 @@ commentPost = (req, res, id) => {
     .catch(err => res.status(400).json("Error: " + err));
 };
 
-// miscellaneous" ,"family", "finance", "dating", "work", "school", "family", "employment", "love"
-
 router.route("/").get((req, res) => {
   getInfo(req, res);
 });
@@ -53,12 +40,7 @@ router.route("/love").get((req, res) => {
 
 router.route("/love/:id").get((req, res) => {
   let id = req.params.id;
-
   getPostId(req, res, id);
-});
-
-router.route("/love/comment/:id").put((req, res) => {
-  commentPost(req, res, req.params.id);
 });
 
 router.route("/employment").get((req, res) => {
@@ -69,20 +51,12 @@ router.route("/employment/:id").get((req, res) => {
   getPostId(req, res, req.params.id);
 });
 
-router.route("/employment/comment/:id").put((req, res) => {
-  commentPost(req, res, req.params.id);
-});
-
 router.route("/family").get((req, res) => {
   getInfoCategory(req, res, "family");
 });
 
 router.route("/family/:id").get((req, res) => {
   getPostId(req, res, req.params.id);
-});
-
-router.route("/family/comment/:id").put((req, res) => {
-  commentPost(req, res, req.params.id);
 });
 
 router.route("/school").get((req, res) => {
@@ -93,20 +67,12 @@ router.route("/school/:id").get((req, res) => {
   getPostId(req, res, req.params.id);
 });
 
-router.route("/school/comment/:id").put((req, res) => {
-  commentPost(req, res, req.params.id);
-});
-
 router.route("/work").get((req, res) => {
   getInfoCategory(req, res, "work");
 });
 
 router.route("/work/:id").get((req, res) => {
   getPostId(req, res, req.params.id);
-});
-
-router.route("/work/comment/:id").put((req, res) => {
-  commentPost(req, res, req.params.id);
 });
 
 router.route("/dating").get((req, res) => {
@@ -117,20 +83,12 @@ router.route("/dating/:id").get((req, res) => {
   getPostId(req, res, req.params.id);
 });
 
-router.route("/dating/comment/:id").put((req, res) => {
-  commentPost(req, res, req.params.id);
-});
-
 router.route("/finance").get((req, res) => {
   getInfoCategory(req, res, "finance");
 });
 
 router.route("/finance/:id").get((req, res) => {
   getPostId(req, res, req.params.id);
-});
-
-router.route("/finance/comment/:id").put((req, res) => {
-  commentPost(req, res, req.params.id);
 });
 
 router.route("/family").get((req, res) => {
@@ -141,16 +99,44 @@ router.route("/family/:id").get((req, res) => {
   getPostId(req, res, req.params.id);
 });
 
-router.route("/family/comment/:id").put((req, res) => {
-  commentPost(req, res, req.params.id);
-});
-
 router.route("/miscellaneous").get((req, res) => {
   getInfoCategory(req, res, "miscellaneous");
 });
 
 router.route("/miscellaneous/:id").get((req, res) => {
   getPostId(req, res, req.params.id);
+});
+
+router.route("/love/comment/:id").put((req, res) => {
+  commentPost(req, res, req.params.id);
+});
+
+router.route("/employment/comment/:id").put((req, res) => {
+  commentPost(req, res, req.params.id);
+});
+
+router.route("/family/comment/:id").put((req, res) => {
+  commentPost(req, res, req.params.id);
+});
+
+router.route("/school/comment/:id").put((req, res) => {
+  commentPost(req, res, req.params.id);
+});
+
+router.route("/dating/comment/:id").put((req, res) => {
+  commentPost(req, res, req.params.id);
+});
+
+router.route("/work/comment/:id").put((req, res) => {
+  commentPost(req, res, req.params.id);
+});
+
+router.route("/finance/comment/:id").put((req, res) => {
+  commentPost(req, res, req.params.id);
+});
+
+router.route("/family/comment/:id").put((req, res) => {
+  commentPost(req, res, req.params.id);
 });
 
 router.route("/miscellaneous/comment/:id").put((req, res) => {
@@ -222,16 +208,3 @@ router.route("/search/:query").get((req, res) => {
 });
 
 module.exports = router;
-
-// [
-//   '{{repeat(10, 10)}}',{
-//    title: '{{company().toUpperCase()}}',
-//      user: '{{firstName()}}' ,
-//     category:'miscellaneous',
-//     date: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm")}}',
-
-//       description:'{{lorem(0.5, "paragraphs")}}',
-//       toExpire: '{{false}}'
-//   }
-
-// ]
