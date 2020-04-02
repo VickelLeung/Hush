@@ -9,6 +9,7 @@ import { SnackBars } from "../components/Snacbkar/SnackBars";
 
 import { connect } from "react-redux";
 import { userPostFetch } from "../actions/actions";
+import ImageUploader from "react-images-upload";
 
 class Register extends PureComponent {
   state = {
@@ -16,7 +17,9 @@ class Register extends PureComponent {
     registerEmail: "",
     registerPassword: "",
     openRegister: false,
-    openError: false
+    openError: false,
+    pictures: [],
+    isShow: false
   };
 
   submitRegister = () => {
@@ -29,12 +32,7 @@ class Register extends PureComponent {
       password: this.state.registerPassword
     };
 
-    console.log(userData);
-    // const userData = {
-    //   displayName: this.state.displayName,
-    //   registerEmail: this.state.registerEmail,
-    //   registerPassword: this.state.registerPassword
-    // };
+    // console.log(userData);
 
     this.props.userPostFetch(userData);
 
@@ -55,12 +53,31 @@ class Register extends PureComponent {
     });
   };
 
+  onDrop = pictureFiles => {
+    console.log(pictureFiles);
+    this.setState({
+      pictures: this.state.pictures.concat(pictureFiles),
+      isShow: true
+    });
+  };
+
   render() {
     let Register = (
       <div style={{ width: "100vw" }}>
         <Title>Register</Title>
-        {/* {this.state.isRegistered ? <p>You have successfully registered</p> : <p>Error, please try again!</p>} */}
+
         <FormContainer>
+          <ProfileUpload
+            withIcon={false}
+            withPreview={true}
+            singleImage={true}
+            withLabel={false}
+            buttonText="Upload Profile picture"
+            onChange={this.onDrop}
+            imgExtension={[".jpg", ".gif", ".png"]}
+            maxFileSize={5242880}
+          />
+
           <TextField
             onChange={e => {
               this.setState({ registerEmail: e.target.value });
@@ -145,4 +162,10 @@ padding: 1% 2%;
 const LinkContainer = styled.div`
   text-align: center;
   margin: 0 30%;
+`;
+
+const ProfileUpload = styled(ImageUploader)`
+  .deleteImage {
+    background: black;
+  }
 `;

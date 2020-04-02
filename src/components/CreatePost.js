@@ -11,7 +11,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-// import { Select } from 'antd';
+import { Link } from "react-router-dom";
 import createPostBg from "../images/backgroundImages/createPostBg.png";
 
 import axios from "axios";
@@ -53,7 +53,7 @@ class CreatePost extends Component {
           this.setState({ linkID: response.data });
         })
         .catch(err => console.log(err));
-      this.resetContent();
+      //this.resetContent();
       this.displayModal();
     }
   };
@@ -153,7 +153,7 @@ class CreatePost extends Component {
                 />
               )}
             </div>
-
+            <p>{this.state.category}</p>
             <SubmitBtn onClick={this.submit}>Submit</SubmitBtn>
           </FormContainer>
 
@@ -161,14 +161,27 @@ class CreatePost extends Component {
             <DialogTitle id="alert-dialog-title">{"Sucess!"}</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
-                Your post have been successfully posted under the categorie:{" "}
-                {this.state.category}!
+                Your post have been successfully posted under the categorie:
+                {this.state.category}
+                <div>
+                  <Link
+                    to={
+                      "/categories/" +
+                      this.state.category +
+                      "/" +
+                      this.state.linkID
+                    }
+                  >
+                    Click to view your post
+                  </Link>
+                </div>
               </DialogContentText>
             </DialogContent>
             <DialogActions>
               {/* Add link to post? */}
               <Button
                 onClick={() => {
+                  this.resetContent();
                   this.setState({ isModal: false });
                 }}
                 color="primary"

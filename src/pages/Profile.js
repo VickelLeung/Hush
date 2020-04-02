@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { getProfileFetch } from "../actions/actions";
-
+import styled from "styled-components";
 class Profile extends PureComponent {
   state = {
     userInfo: [],
@@ -24,6 +24,10 @@ class Profile extends PureComponent {
     return (
       <div>
         <h2>Welcome, {this.state.displayName}</h2>
+        <ImgContainer>
+          <ProfileImg alt="profile" />
+          <Name>John</Name>
+        </ImgContainer>
       </div>
     );
   }
@@ -46,3 +50,15 @@ const mapDispatchToProps = dispatch => ({
 // };
 
 export default connect(null, mapDispatchToProps)(Profile);
+
+const ImgContainer = styled.div`
+  border: 1px solid black;
+  text-align: center;
+`;
+
+const ProfileImg = styled.img`
+  border: 1px solid black;
+  border-radius: 10px;
+`;
+
+const Name = styled.div``;
