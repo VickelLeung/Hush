@@ -6,45 +6,56 @@ import Tabs from "@material-ui/core/Tabs";
 
 class NavigationBar extends PureComponent {
   state = {
-    currentTab: 0
+    currentTab: 0,
   };
 
-  setTab = tab => {
+  setTab = (tab) => {
     this.setState({
-      currentTab: tab
+      currentTab: tab,
     });
-
-    console.log(this.state.currentTab);
   };
 
   render() {
+    const linkCss = { color: "white" };
     return (
       <Wrapper>
         <TabContainer
           value={this.state.currentTab}
           aria-label="navigation"
-          indicatorColor="secondary"
-          textColor="secondary"
           centered
         >
-          <LinkItem to="/">
-            <TabItem onClick={() => this.setTab(0)} label="Home" />
-          </LinkItem>
+          <Tab
+            style={linkCss}
+            onClick={() => this.setTab(0)}
+            label="Home"
+            component={Link}
+            to="/"
+          />
 
-          <LinkItem to="/explore">
-            <TabItem onClick={() => this.setTab(1)} label="Explore" />
-          </LinkItem>
+          <Tab
+            style={linkCss}
+            onClick={() => this.setTab(1)}
+            label="Explore"
+            component={Link}
+            to="/explore"
+          />
 
-          <LinkItem to="/categories">
-            <TabItem onClick={() => this.setTab(2)} label="Categories" />
-          </LinkItem>
+          <Tab
+            style={linkCss}
+            onClick={() => this.setTab(2)}
+            label="View posts"
+            component={Link}
+            to="/categories"
+          />
 
-          <LinkItem to="/createpost">
-            <TabItem onClick={() => this.setTab(3)} label="Post secrets" />
-          </LinkItem>
+          <Tab
+            style={linkCss}
+            onClick={() => this.setTab(3)}
+            label="Post secrets"
+            component={Link}
+            to="/createpost"
+          />
         </TabContainer>
-
-        {/* <LinkItem to="/chat"/> */}
 
         <AuthenticateContainer>
           <LoginBtn to="/login">Login</LoginBtn>
@@ -99,17 +110,5 @@ const TabContainer = styled(Tabs)`
 
   .MuiTabs-indicator {
     background-color: white;
-  }
-`;
-
-const TabItem = styled(Tab)`
-  &:active {
-    color: red;
-  }
-
-  color: white;
-
-  &:hover {
-    color: #ffff;
   }
 `;

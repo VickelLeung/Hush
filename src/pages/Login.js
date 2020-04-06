@@ -26,13 +26,13 @@ class Login extends PureComponent {
     errorMsg: "",
     password: "",
     showPassword: false,
-    openError: false
+    openError: false,
   };
 
   submitLogin = () => {
     const userData = {
       email: this.state.loginEmail,
-      password: this.state.loginPassword
+      password: this.state.loginPassword,
     };
 
     this.props.userLogin(userData);
@@ -80,7 +80,7 @@ class Login extends PureComponent {
           <TextField
             type="email"
             style={{ background: "white", color: "white" }}
-            onChange={e => {
+            onChange={(e) => {
               this.setState({ loginEmail: e.target.value });
             }}
             label="Email: "
@@ -95,7 +95,7 @@ class Login extends PureComponent {
               id="standard-adornment-password"
               type={this.state.showPassword ? "text" : "password"}
               value={this.state.loginPassword}
-              onChange={e => this.setState({ loginPassword: e.target.value })}
+              onChange={(e) => this.setState({ loginPassword: e.target.value })}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -103,7 +103,7 @@ class Login extends PureComponent {
                     onClick={() => {
                       this.setState({ showPassword: !this.state.showPassword });
                     }}
-                    onMouseDown={event => {
+                    onMouseDown={(event) => {
                       event.preventDefault();
                     }}
                   >
@@ -144,14 +144,14 @@ class Login extends PureComponent {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  userLogin: userInfo => dispatch(userLogin(userInfo))
+const mapDispatchToProps = (dispatch) => ({
+  userLogin: (userInfo) => dispatch(userLogin(userInfo)),
 });
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   console.log(state.currentUser._doc);
   return {
-    userDetails: state.currentUser._doc
+    userDetails: state.currentUser._doc,
   };
 };
 

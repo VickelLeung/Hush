@@ -35,10 +35,10 @@ const Homepage = () => {
       </TitleContainer>
 
       <BoxContainer>
-        <WhiteBox>{/* <Image src={Lock} /> */}</WhiteBox>
-        <BlackBox>{/* <Image src={Confidential} /> */}</BlackBox>
-        <BlackBox>{/* <Image src={Anonymous} /> */}</BlackBox>
-        <WhiteBox>{/* <Image src={Share} /> */}</WhiteBox>
+        <WhiteBox1>{/* <Image src={Lock} /> */}</WhiteBox1>
+        <BlackBox1>{/* <Image src={Confidential} /> */}</BlackBox1>
+        <BlackBox2>{/* <Image src={Anonymous} /> */}</BlackBox2>
+        <WhiteBox2>{/* <Image src={Share} /> */}</WhiteBox2>
       </BoxContainer>
     </Wrapper>
   );
@@ -118,12 +118,22 @@ const SubTitle = styled.div`
   font-size: 1.3em;
 `;
 
-const bounceAnimation = keyframes`${bounce}`;
-const bounceUpAnim = keyframes`${bounceInUp}`;
-const bounceDownAnim = keyframes`${bounceInDown}`;
+// const bounceAnimation = keyframes`${bounce}`;
+// const bounceUpAnim = keyframes`${bounceInUp}`;
+// const bounceDownAnim = keyframes`${bounceInDown}`;
 const pulseAnim = keyframes`${pulse}`;
 
-const BlackBox = styled.div`
+const BlackBox1 = styled.div`
+  margin: 2%;
+  border-radius: 20px;
+  height: 12em;
+  width: 12em;
+  background-color: #555;
+
+  animation: 1s ${pulseAnim} infinite;
+`;
+
+const BlackBox2 = styled.div`
   margin: 2%;
   border-radius: 20px;
   height: 12em;
@@ -133,14 +143,24 @@ const BlackBox = styled.div`
   animation: 2s ${pulseAnim} infinite;
 `;
 
-const WhiteBox = styled.div`
+const WhiteBox1 = styled.div`
   margin: 2%;
   border: 2px solid black;
   border-radius: 20px;
   height: 12em;
   width: 12em;
   background-color: white;
-  animation: 3s ${pulseAnim} infinite;
+  animation: 5s ${pulseAnim} infinite;
+`;
+
+const WhiteBox2 = styled.div`
+  margin: 2%;
+  border: 2px solid black;
+  border-radius: 20px;
+  height: 12em;
+  width: 12em;
+  background-color: white;
+  animation: 4s ${pulseAnim} infinite;
 `;
 
 const BtnContainer = styled.div`

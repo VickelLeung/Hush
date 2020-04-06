@@ -7,6 +7,14 @@ import LoginBg from "../images/backgroundImages/loginBg.png";
 import { Link } from "react-router-dom";
 import { SnackBars } from "../components/Snacbkar/SnackBars";
 
+import InputLabel from "@material-ui/core/InputLabel";
+import IconButton from "@material-ui/core/IconButton";
+import Input from "@material-ui/core/Input";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import FormControl from "@material-ui/core/FormControl";
+
 import { connect } from "react-redux";
 import { userPostFetch } from "../actions/actions";
 import ImageUploader from "react-images-upload";
@@ -19,7 +27,8 @@ class Register extends PureComponent {
     openRegister: false,
     openError: false,
     pictures: [],
-    isShow: false
+    isShow: false,
+    showPassword: false,
   };
 
   submitRegister = () => {
@@ -29,14 +38,14 @@ class Register extends PureComponent {
         this.state.displayName.length === 0
           ? "no-name"
           : this.state.displayName,
-      password: this.state.registerPassword
+      password: this.state.registerPassword,
     };
 
     // console.log(userData);
 
     this.props.userPostFetch(userData);
 
-    register(userData).then(res => {
+    register(userData).then((res) => {
       console.log(res);
       if (res) {
         console.log(res);
@@ -53,11 +62,11 @@ class Register extends PureComponent {
     });
   };
 
-  onDrop = pictureFiles => {
+  onDrop = (pictureFiles) => {
     console.log(pictureFiles);
     this.setState({
       pictures: this.state.pictures.concat(pictureFiles),
-      isShow: true
+      isShow: true,
     });
   };
 
@@ -79,24 +88,50 @@ class Register extends PureComponent {
           />
 
           <TextField
-            onChange={e => {
+            onChange={(e) => {
               this.setState({ registerEmail: e.target.value });
             }}
             label="Email: "
           />
           <TextField
-            onChange={e => {
+            onChange={(e) => {
               this.setState({ displayName: e.target.value });
             }}
             label="Display name: "
           />
-          <TextField
-            type="password"
-            onChange={e => {
-              this.setState({ registerPassword: e.target.value });
-            }}
-            label="Password"
-          />
+
+          <FormControl fullWidth>
+            <InputLabel htmlFor="standard-adornment-password">
+              Password
+            </InputLabel>
+            <Input
+              label="Password"
+              id="standard-adornment-password"
+              type={this.state.showPassword ? "text" : "password"}
+              value={this.state.loginPassword}
+              onChange={(e) => this.setState({ loginPassword: e.target.value })}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => {
+                      this.setState({ showPassword: !this.state.showPassword });
+                    }}
+                    onMouseDown={(event) => {
+                      event.preventDefault();
+                    }}
+                  >
+                    {this.state.showPassword ? (
+                      <VisibilityOff />
+                    ) : (
+                      <Visibility />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+
           <Button onClick={this.submitRegister}>Submit</Button>
         </FormContainer>
         <LinkContainer>
@@ -111,12 +146,6 @@ class Register extends PureComponent {
           </Link>
         </LinkContainer>
 
-        {/* <p>
-          {this.state.displayName}
-          {this.state.registerEmail}
-          {this.state.registerPassword}
-        </p> */}
-
         <SnackBars open={this.state.openRegister} severity="success">
           Sucessfully registered! You will be redirect to login.
         </SnackBars>
@@ -130,8 +159,8 @@ class Register extends PureComponent {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  userPostFetch: userInfo => dispatch(userPostFetch(userInfo))
+const mapDispatchToProps = (dispatch) => ({
+  userPostFetch: (userInfo) => dispatch(userPostFetch(userInfo)),
 });
 
 export default connect(null, mapDispatchToProps)(Register);

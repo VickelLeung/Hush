@@ -24,7 +24,7 @@ class CreatePost extends Component {
     description: "",
     checked: "a",
     isModal: false,
-    linkID: ""
+    linkID: "",
   };
 
   submit = () => {
@@ -40,19 +40,19 @@ class CreatePost extends Component {
       title: this.state.title,
       category: this.state.category,
       description: this.state.description,
-      date: new Date().toDateString()
+      date: new Date().toDateString(),
     };
     console.log("submit...");
     if (this.state.title && this.state.category && this.state.description) {
       axios
         .post("https://hushbackend.herokuapp.com/post/add", post)
-        .then(response => {
+        .then((response) => {
           console.log(response.data);
           console.log("id:" + response.data.id);
           //set link
           this.setState({ linkID: response.data });
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
       //this.resetContent();
       this.displayModal();
     }
@@ -70,11 +70,11 @@ class CreatePost extends Component {
       user: "",
       category: "",
       description: "",
-      checked: "a"
+      checked: "a",
     });
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     console.log("event" + event.target.value);
     this.setState({ category: event.target.value });
   };
@@ -91,7 +91,7 @@ class CreatePost extends Component {
             <LabelText>Write a title</LabelText>
             <TextInput
               id="standard-multiline-static"
-              onChange={e => this.setState({ title: e.target.value })}
+              onChange={(e) => this.setState({ title: e.target.value })}
               required
             />
             <LabelText>Choose a categories</LabelText>
@@ -113,7 +113,7 @@ class CreatePost extends Component {
               id="standard-multiline-static"
               multiline
               rows="4"
-              onChange={e => this.setState({ description: e.target.value })}
+              onChange={(e) => this.setState({ description: e.target.value })}
               required
             />
             <LabelText>Stay anonymous?</LabelText>
@@ -121,7 +121,7 @@ class CreatePost extends Component {
               <Label>Yes</Label>
               <Radio
                 checked={this.state.checked === "a"}
-                onChange={e => {
+                onChange={(e) => {
                   this.setState({ checked: "a" });
                 }}
                 value="a"
@@ -131,7 +131,7 @@ class CreatePost extends Component {
               <Label>No</Label>
               <Radio
                 checked={this.state.checked === "b"}
-                onChange={e => {
+                onChange={(e) => {
                   this.setState({ checked: "b" });
                 }}
                 value="b"
@@ -142,18 +142,17 @@ class CreatePost extends Component {
               {this.state.checked === "b" ? (
                 <TextInput
                   id="standard-multiline-static"
-                  onChange={e => this.setState({ user: e.target.value })}
+                  onChange={(e) => this.setState({ user: e.target.value })}
                   label="Enter username"
                 />
               ) : (
                 <TextField
                   id="standard-multiline-static"
-                  onChange={e => this.setState({ user: e.target.value })}
+                  onChange={(e) => this.setState({ user: e.target.value })}
                   disabled
                 />
               )}
             </div>
-            <p>{this.state.category}</p>
             <SubmitBtn onClick={this.submit}>Submit</SubmitBtn>
           </FormContainer>
 
