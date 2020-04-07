@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
+import logo from "../../images/logo/logo1.png";
 
 class NavigationBar extends PureComponent {
   state = {
@@ -19,6 +20,12 @@ class NavigationBar extends PureComponent {
     const linkCss = { color: "white" };
     return (
       <Wrapper>
+        <LogoContainer>
+          <Link to="/">
+            <img src={logo} onClick={() => this.setTab(0)} />
+          </Link>
+        </LogoContainer>
+
         <TabContainer
           value={this.state.currentTab}
           aria-label="navigation"
@@ -72,6 +79,9 @@ const Wrapper = styled.div`
   padding: 1% 0;
   text-align: center;
   background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const LinkItem = styled(NavLink)`
@@ -98,10 +108,8 @@ const RegisterBtn = styled(Link)`
 `;
 
 const AuthenticateContainer = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
   padding: 1%;
+  margin-right: 2%;
 `;
 
 const TabContainer = styled(Tabs)`
@@ -112,3 +120,5 @@ const TabContainer = styled(Tabs)`
     background-color: white;
   }
 `;
+
+const LogoContainer = styled.div``;

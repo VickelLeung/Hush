@@ -5,6 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
 import axios from "axios";
 
+import { ShareSocial } from "../ShareSocial/ShareSocial";
+
 import { one } from "../../images/backgroundImages";
 import bgImg from "../../images/backgroundImages/motoki-tonn-vV1a1Leq-dQ-unsplash.jpg";
 import TextField from "@material-ui/core/TextField";
@@ -17,7 +19,7 @@ class PostCard extends PureComponent {
     comments: [],
     username: "",
     message: "",
-    isLoggedIn: true
+    isLoggedIn: true,
   };
 
   generateRandomImage = () => {};
@@ -31,7 +33,7 @@ class PostCard extends PureComponent {
     console.log(id);
     axios
       .get("https://hushbackend.herokuapp.com/post/love/" + id)
-      .then(result => {
+      .then((result) => {
         let tempArr = result.data[0].comment;
         console.log("s: " + tempArr);
         this.setState({ card: result.data, comments: tempArr });
@@ -43,13 +45,13 @@ class PostCard extends PureComponent {
     let data = { username: this.state.username, message: this.state.message };
     axios
       .put("https://hushbackend.herokuapp.com/love/comment/" + id, data)
-      .then(r => console.log(r.status))
-      .catch(e => console.log(e));
+      .then((r) => console.log(r.status))
+      .catch((e) => console.log(e));
 
     //get comments
     axios
       .get("https://hushbackend.herokuapp.com/post/love/" + id)
-      .then(result => {
+      .then((result) => {
         let tempArr = result.data[0].comment;
         console.log("s: " + tempArr);
         this.setState({ comments: tempArr });
@@ -64,7 +66,7 @@ class PostCard extends PureComponent {
           rows="4"
           variant="standard"
           required
-          onChange={e => {
+          onChange={(e) => {
             this.setState({ message: e.target.value });
           }}
         />
@@ -86,7 +88,7 @@ class PostCard extends PureComponent {
 
     return (
       <Wrapper>
-        {this.state.card.map(item => {
+        {this.state.card.map((item) => {
           return (
             <MainContainer>
               <TitleContainer>
@@ -119,7 +121,12 @@ class PostCard extends PureComponent {
             </MainContainer>
           );
         })}
-
+        <ShareSocial
+          url={
+            "https://hushbackend.herokuapp.com/post/love/" +
+            this.props.match.params.id
+          }
+        />
         {/* <Form>
             <TextField
                 style={{margin: "2% 0"}}
@@ -146,7 +153,7 @@ class PostCard extends PureComponent {
         {this.state.isLoggedIn ? form : message}
 
         <CommentContainer>
-          {this.state.comments.map(item => {
+          {this.state.comments.map((item) => {
             return (
               <User>
                 <p>{item.username}</p>
