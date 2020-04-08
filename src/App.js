@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 // import { withRouter } from "react-router";
-import { Homepage } from "./pages/Homepage";
+import Homepage from "./pages/Homepage";
 import { Chat } from "./pages/Chat";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { NavigationBar } from "./components/navigation/NavigationBar";
-import { CreatePost } from "./components/CreatePost";
-import { Categories } from "./pages/Categories";
+import CreatePost from "./components/CreatePost";
+import Categories from "./pages/Categories";
 import { CategoriesCard } from "./components/CategoriesContainer/CategoriesCard";
 import { Explore } from "./pages/Explore";
 import { Search } from "./pages/Search";
@@ -86,7 +86,7 @@ function App() {
 
         <Route
           path="/categories/love/:id"
-          component={props => <PostCard {...props} />}
+          component={(props) => <PostCard {...props} />}
         />
       </div>
     </Router>

@@ -13,8 +13,10 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Link } from "react-router-dom";
 import createPostBg from "../images/backgroundImages/createPostBg.png";
-
 import axios from "axios";
+import Captcha from "demos-react-captcha";
+
+import { withNamespaces } from "react-i18next";
 
 class CreatePost extends Component {
   state = {
@@ -25,6 +27,7 @@ class CreatePost extends Component {
     checked: "a",
     isModal: false,
     linkID: "",
+    isValid: false,
   };
 
   submit = () => {
@@ -36,13 +39,14 @@ class CreatePost extends Component {
     );
 
     const post = {
+      isValid: this.state.isValid,
       user: username,
       title: this.state.title,
       category: this.state.category,
       description: this.state.description,
       date: new Date().toDateString(),
     };
-    console.log("submit...");
+    // console.log("submit...");
     if (this.state.title && this.state.category && this.state.description) {
       axios
         .post("https://hushbackend.herokuapp.com/post/add", post)
@@ -80,35 +84,36 @@ class CreatePost extends Component {
   };
 
   render() {
+    const { t } = this.props;
     return (
       <Wrapper>
         <MainContainer>
           <InfoContainer>
-            <Title>Share your secret</Title>
-            <Title>Fill the form to let everyone know about your secrets</Title>
+            <Title>{t("Post Title")}</Title>
+            <Title>{t("Post Description")}</Title>
           </InfoContainer>
           <FormContainer>
-            <LabelText>Write a title</LabelText>
+            <LabelText>{t("Post Form Title")}</LabelText>
             <TextInput
               id="standard-multiline-static"
               onChange={(e) => this.setState({ title: e.target.value })}
               required
             />
-            <LabelText>Choose a categories</LabelText>
+            <LabelText>{t("Post Form Categories")}</LabelText>
             <Select
               labelId="demo-customized-select-label"
               id="demo-customized-select"
               onChange={this.handleChange}
               required
             >
-              <MenuItem value={"love"}>Love</MenuItem>
-              <MenuItem value={"work"}>Work</MenuItem>
-              <MenuItem value={"school"}>School</MenuItem>
-              <MenuItem value={"dating"}>Dating</MenuItem>
-              <MenuItem value={"finance"}>Finance</MenuItem>
-              <MenuItem value={"family"}>Family</MenuItem>
+              <MenuItem value={"love"}>{t("Love")}</MenuItem>
+              <MenuItem value={"work"}>{t("Work")}</MenuItem>
+              <MenuItem value={"school"}>{t("School")}</MenuItem>
+              <MenuItem value={"dating"}>{t("Dating")}</MenuItem>
+              <MenuItem value={"finance"}>{t("Finance")}</MenuItem>
+              <MenuItem value={"family"}>{t("Family")}</MenuItem>
             </Select>
-            <LabelText>Share your secret below</LabelText>
+            <LabelText>{t("Post Form Description")}</LabelText>
             <TextInput
               id="standard-multiline-static"
               multiline
@@ -116,9 +121,9 @@ class CreatePost extends Component {
               onChange={(e) => this.setState({ description: e.target.value })}
               required
             />
-            <LabelText>Stay anonymous?</LabelText>
+            <LabelText>{t("Post Form anonymous")}</LabelText>
             <div>
-              <Label>Yes</Label>
+              <Label>{t("Yes")}</Label>
               <Radio
                 checked={this.state.checked === "a"}
                 onChange={(e) => {
@@ -128,7 +133,7 @@ class CreatePost extends Component {
                 color="default"
                 name="radio-button-demo"
               />
-              <Label>No</Label>
+              <Label>{t("No")}</Label>
               <Radio
                 checked={this.state.checked === "b"}
                 onChange={(e) => {
@@ -153,14 +158,22 @@ class CreatePost extends Component {
                 />
               )}
             </div>
-            <SubmitBtn onClick={this.submit}>Submit</SubmitBtn>
+            {this.state.isValid ? null : (
+              <Captcha
+                onChange={(e) => this.setState({ isValid: e })}
+                placeholder="Enter captcha"
+              />
+            )}
+            {this.state.isValid ? (
+              <SubmitBtn onClick={this.submit}>{t("Submit")}</SubmitBtn>
+            ) : null}
           </FormContainer>
 
           <Dialog open={this.state.isModal} onClose={this.state.isModal}>
             <DialogTitle id="alert-dialog-title">{"Sucess!"}</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
-                Your post have been successfully posted under the categorie:
+                {t("Post Dialog Success")}
                 {this.state.category}
                 <div>
                   <Link
@@ -171,7 +184,7 @@ class CreatePost extends Component {
                       this.state.linkID
                     }
                   >
-                    Click to view your post
+                    {t("Post View Dialog")}
                   </Link>
                 </div>
               </DialogContentText>
@@ -186,17 +199,18 @@ class CreatePost extends Component {
                 color="primary"
                 autoFocus
               >
-                Done
+                {t("Done")}
               </Button>
             </DialogActions>
           </Dialog>
         </MainContainer>
+        ;
       </Wrapper>
     );
   }
 }
 
-export { CreatePost };
+export default withNamespaces()(CreatePost);
 
 const Wrapper = styled.div`
   height: 82vh;

@@ -1,0 +1,28 @@
+{
+    "Welcome": "Bienvenu a Hush",
+    "Homepage description": "Partage ton secrets a toute le monde. Ne fait juste le garder, laisse toute le monde savoir",
+    "Home Button": "Commence a partager votre secrets maintenant!",
+
+    "Love": "Amour",
+    "Work": "Travail",
+    "School": "Ecole",
+    "Dating": "Frequentation",
+    "Finance": "Finance",
+    "Family": "Famille",
+    "Miscellaneous": "Divers",
+
+    "Post Title": "Partage votre secret",
+    "Post Description": "Remplisez le formulaire et enfin que tout le monde sache votre secret",
+    "Post Form Title": "Ecrivez un titre",
+    "Post Form Categories": "Choissiez une categories",
+    "Post Form Description": "partagez votre secret un dessous",
+    "Post Form anonymous": "Restez anonyme?",
+
+    "Post Dialog Success": "Votre message a été publié avec succès dans la catégorie:",
+    "Post View Dialog": "Cliquez pour voir votre message",
+
+    "Submit": "Soumettre",
+    "Done": "Fini",
+    "Yes": "Oui",
+    "No": "Non"
+}

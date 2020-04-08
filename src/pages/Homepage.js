@@ -11,8 +11,8 @@ import Lock from "../images/homepageIcons/lock.png";
 import Confidential from "../images/homepageIcons/confidential.png";
 import Anonymous from "../images/homepageIcons/anonymous.png";
 import Share from "../images/homepageIcons/share.png";
-
-const Homepage = () => {
+import { withNamespaces } from "react-i18next";
+const Homepage = ({ t }) => {
   return (
     <Wrapper>
       <LineContainer>
@@ -22,14 +22,12 @@ const Homepage = () => {
       </LineContainer>
 
       <TitleContainer>
-        <Title>WELCOME TO HUSH</Title>
-        <SubTitle>
-          Share your secret to the world. Don’t just keep it, let everyone know
-          about it
-        </SubTitle>
+        {<Title>{t("Welcome")}</Title>}
+
+        <SubTitle>{t("Homepage description")}</SubTitle>
         <BtnContainer>
           <Link style={{ textDecoration: "none" }} to="/createpost">
-            <LinkBtn variant="outlined">Start sharing your secret now!</LinkBtn>
+            <LinkBtn variant="outlined">{t("Home Button")}</LinkBtn>
           </Link>
         </BtnContainer>
       </TitleContainer>
@@ -44,7 +42,7 @@ const Homepage = () => {
   );
 };
 
-export { Homepage };
+export default withNamespaces()(Homepage);
 
 const Wrapper = styled.div`
   text-align: center;
@@ -113,6 +111,7 @@ const TitleContainer = styled.div`
   text-align: center;
   align-self: start;
   margin: 10% 4%;
+  width: 50vw;
 `;
 const SubTitle = styled.div`
   font-size: 1.3em;
@@ -130,7 +129,7 @@ const BlackBox1 = styled.div`
   width: 12em;
   background-color: #555;
 
-  animation: 1s ${pulseAnim} infinite;
+  animation: 1.5s ${pulseAnim} infinite;
 `;
 
 const BlackBox2 = styled.div`
@@ -140,7 +139,7 @@ const BlackBox2 = styled.div`
   width: 12em;
   background-color: #555;
 
-  animation: 2s ${pulseAnim} infinite;
+  animation: 2.5s ${pulseAnim} infinite;
 `;
 
 const WhiteBox1 = styled.div`
@@ -150,7 +149,7 @@ const WhiteBox1 = styled.div`
   height: 12em;
   width: 12em;
   background-color: white;
-  animation: 5s ${pulseAnim} infinite;
+  animation: 1s ${pulseAnim} infinite;
 `;
 
 const WhiteBox2 = styled.div`
@@ -160,7 +159,7 @@ const WhiteBox2 = styled.div`
   height: 12em;
   width: 12em;
   background-color: white;
-  animation: 4s ${pulseAnim} infinite;
+  animation: 2s ${pulseAnim} infinite;
 `;
 
 const BtnContainer = styled.div`

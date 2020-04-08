@@ -5,6 +5,8 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import logo from "../../images/logo/logo1.png";
 
+import i18n from "../../i18n";
+
 class NavigationBar extends PureComponent {
   state = {
     currentTab: 0,
@@ -14,6 +16,9 @@ class NavigationBar extends PureComponent {
     this.setState({
       currentTab: tab,
     });
+  };
+  changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
   };
 
   render() {
@@ -65,8 +70,14 @@ class NavigationBar extends PureComponent {
         </TabContainer>
 
         <AuthenticateContainer>
-          <LoginBtn to="/login">Login</LoginBtn>
-          <RegisterBtn to="/register">Register</RegisterBtn>
+          <AuthWrap>
+            <LoginBtn to="/login">Login</LoginBtn>
+            <RegisterBtn to="/register">Register</RegisterBtn>
+          </AuthWrap>
+          <TranslationConrainer>
+            <button onClick={() => this.changeLanguage("fr")}>fr</button>
+            <button onClick={() => this.changeLanguage("en")}>en</button>
+          </TranslationConrainer>
         </AuthenticateContainer>
       </Wrapper>
     );
@@ -110,8 +121,12 @@ const RegisterBtn = styled(Link)`
 const AuthenticateContainer = styled.div`
   padding: 1%;
   margin-right: 2%;
+  display: flex;
+  flex-direction: column;
 `;
 
+const AuthWrap = styled.div``;
+const TranslationConrainer = styled.div``;
 const TabContainer = styled(Tabs)`
   background-color: rgba(0, 0, 0, 0.6);
   height: 4em;
