@@ -6,10 +6,10 @@ import { Chat } from "./pages/Chat";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { NavigationBar } from "./components/navigation/NavigationBar";
+import { NavBar } from "./components/navigation/NavigationBar";
 import CreatePost from "./components/CreatePost";
 import Categories from "./pages/Categories";
-import { CategoriesCard } from "./components/CategoriesContainer/CategoriesCard";
+import { CategoryCards } from "./components/CategoriesContainer/CategoriesCard";
 import { Explore } from "./pages/Explore";
 import { Search } from "./pages/Search";
 import { PostCard } from "./components/Card/PostCard";
@@ -18,9 +18,44 @@ import { ResetPassword } from "./pages/ResetPassword";
 import { resetPassword } from "./components/UserFunctions";
 
 function App() {
+  let categoriesName = [
+    {
+      name: "Love",
+      category: "love",
+    },
+    {
+      name: "Employment",
+      category: "employment",
+    },
+    {
+      name: "Family",
+      category: "family",
+    },
+    {
+      name: "School",
+      category: "school",
+    },
+    {
+      name: "Work",
+      category: "work",
+    },
+    {
+      name: "Dating",
+      category: "dating",
+    },
+    {
+      name: "Finance",
+      category: "finance",
+    },
+    {
+      name: "Miscellaneous",
+      category: "miscellaneous",
+    },
+  ];
+
   return (
     <Router>
-      <NavigationBar />
+      <NavBar />
       <Route exact path="/" component={Homepage} />
       <div className="App">
         <Route exact path="/chat" component={Chat} />
@@ -38,56 +73,27 @@ function App() {
         <Route exact path="/createpost" component={CreatePost} />
         <Route exact path="/search/:param" component={Search} />
 
-        <Route
-          exact
-          path="/categories/love"
-          component={() => <CategoriesCard type="love" name="Love" />}
-        />
-        <Route
-          exact
-          path="/categories/employment"
-          component={() => (
-            <CategoriesCard type="employment" name="Employment" />
-          )}
-        />
-        <Route
-          exact
-          path="/categories/family"
-          component={() => <CategoriesCard type="family" name="Family" />}
-        />
-        <Route
-          exact
-          path="/categories/school"
-          component={() => <CategoriesCard type="school" name="School" />}
-        />
-        <Route
-          exact
-          path="/categories/work"
-          component={() => <CategoriesCard type="work" name="Work" />}
-        />
-        <Route
-          exact
-          path="/categories/dating"
-          component={() => <CategoriesCard type="dating" name="Dating" />}
-        />
-        <Route
-          exact
-          path="/categories/finance"
-          component={() => <CategoriesCard type="finance" name="Finance" />}
-        />
+        {categoriesName.map((item, idex) => {
+          return (
+            <Route
+              exact
+              path={"/categories/" + item.category}
+              component={() => (
+                <CategoryCards type={item.category} name={item.name} />
+              )}
+            />
+          );
+        })}
 
-        <Route
-          exact
-          path="/categories/miscellaneous"
-          component={() => (
-            <CategoriesCard type="miscellaneous" name="Miscellaneous" />
-          )}
-        />
-
-        <Route
-          path="/categories/love/:id"
-          component={(props) => <PostCard {...props} />}
-        />
+        {categoriesName.map((items, index) => {
+          return (
+            <Route
+              keys={index}
+              path={"/categories/" + items.category + "/:id"}
+              component={(props) => <PostCard {...props} />}
+            />
+          );
+        })}
       </div>
     </Router>
   );

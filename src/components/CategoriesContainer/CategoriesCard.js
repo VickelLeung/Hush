@@ -16,13 +16,15 @@ import Skeleton from "@material-ui/lab/Skeleton";
 
 import SearchBar from "../SearchBar";
 
+import { withNamespaces } from "react-i18next";
+
 class CategoriesCard extends Component {
   state = {
     card: [],
     skeletonCard: [],
     picture: "",
     numberOfCards: 0,
-    isLoaded: false
+    isLoaded: false,
   };
 
   generateRandomImage = () => {
@@ -43,7 +45,7 @@ class CategoriesCard extends Component {
     setTimeout(() => {
       axios
         .get("https://hushbackend.herokuapp.com/post/" + this.props.type)
-        .then(result => {
+        .then((result) => {
           console.log(result.data);
           this.setState({ card: result.data, isLoaded: true });
         });
@@ -62,7 +64,7 @@ class CategoriesCard extends Component {
   };
 
   render() {
-    const displaySkeleton = this.state.skeletonCard.map(item => {
+    const displaySkeleton = this.state.skeletonCard.map((item) => {
       return (
         <SkeletonContainer>
           <Skeleton
@@ -82,13 +84,13 @@ class CategoriesCard extends Component {
       );
     });
 
-    const displayCards = this.state.card.map(res => {
+    const displayCards = this.state.card.map((res) => {
       return (
         <LinkItem to={this.props.type + "/" + res._id}>
           <Card
             style={{
               border: "1px solid black",
-              padding: "6% 8%"
+              padding: "6% 8%",
             }}
             variant="outlined"
           >
@@ -104,9 +106,11 @@ class CategoriesCard extends Component {
       );
     });
 
+    const { t } = this.props;
+
     return (
       <div>
-        <MainTitle>{this.props.name}</MainTitle>
+        <MainTitle>{t(this.props.name)}</MainTitle>
         <SearchBar />
 
         <Container>
@@ -117,7 +121,7 @@ class CategoriesCard extends Component {
   }
 }
 
-export { CategoriesCard };
+export const CategoryCards = withNamespaces()(CategoriesCard);
 
 const Container = styled.div`
   display: flex;

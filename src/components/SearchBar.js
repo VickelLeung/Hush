@@ -8,19 +8,18 @@ import { withRouter } from "react-router-dom";
 
 class SearchBar extends PureComponent {
   state = {
-    searchInput: ""
+    searchInput: "",
   };
 
   SubmitSearch = () => {
-    //re-render after onclick
-    // this.setState(this.state);
-    // console.log("test: " + this.state.searchInput);
-    this.props.history.push({
-      pathname: "/search/" + this.state.searchInput
-    });
+    if (this.state.searchInput != "") {
+      this.props.history.push({
+        pathname: "/search/" + this.state.searchInput,
+      });
+    }
   };
 
-  onKeyPress = e => {
+  onKeyPress = (e) => {
     if (e.which === 13) {
       this.SubmitSearch();
     }
@@ -32,7 +31,7 @@ class SearchBar extends PureComponent {
         <InputContainer
           placeholder="Search posts"
           onKeyPress={this.onKeyPress}
-          onChange={e => {
+          onChange={(e) => {
             this.setState({ searchInput: e.target.value });
           }}
         ></InputContainer>

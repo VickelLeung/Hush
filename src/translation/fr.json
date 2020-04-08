@@ -12,10 +12,10 @@
     "Miscellaneous": "Divers",
 
     "Post Title": "Partage votre secret",
-    "Post Description": "Remplisez le formulaire et enfin que tout le monde sache votre secret",
+    "Post Description": "Remplisez le formulaire enfin que tout le monde sache votre secret",
     "Post Form Title": "Ecrivez un titre",
-    "Post Form Categories": "Choissiez une categories",
-    "Post Form Description": "partagez votre secret un dessous",
+    "Post Form Categories": "Choisissez une catégorie",
+    "Post Form Description": "Partagez votre secret ci-dessous",
     "Post Form anonymous": "Restez anonyme?",
 
     "Post Dialog Success": "Votre message a été publié avec succès dans la catégorie:",
@@ -24,5 +24,13 @@
     "Submit": "Soumettre",
     "Done": "Fini",
     "Yes": "Oui",
-    "No": "Non"
+    "No": "Non",
+
+    "Home": "Accueil",
+    "Explore": "Explorer",
+    "View Post": "Voir l'Article",
+    "Post Secret": "Publier Un Secret",
+
+    "Register": "S'inscrire",
+    "Login": "Connexion"
 }

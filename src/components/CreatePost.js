@@ -100,19 +100,14 @@ class CreatePost extends Component {
               required
             />
             <LabelText>{t("Post Form Categories")}</LabelText>
-            <Select
-              labelId="demo-customized-select-label"
-              id="demo-customized-select"
-              onChange={this.handleChange}
-              required
-            >
+            <SelectOption onChange={this.handleChange} required>
               <MenuItem value={"love"}>{t("Love")}</MenuItem>
               <MenuItem value={"work"}>{t("Work")}</MenuItem>
               <MenuItem value={"school"}>{t("School")}</MenuItem>
               <MenuItem value={"dating"}>{t("Dating")}</MenuItem>
               <MenuItem value={"finance"}>{t("Finance")}</MenuItem>
               <MenuItem value={"family"}>{t("Family")}</MenuItem>
-            </Select>
+            </SelectOption>
             <LabelText>{t("Post Form Description")}</LabelText>
             <TextInput
               id="standard-multiline-static"
@@ -204,7 +199,6 @@ class CreatePost extends Component {
             </DialogActions>
           </Dialog>
         </MainContainer>
-        ;
       </Wrapper>
     );
   }
@@ -264,6 +258,12 @@ const SubmitBtn = styled(Button)`
 
 const TextInput = styled(TextField)`
   .MuiInput-underline:after {
+    border-bottom: 2px solid black;
+  }
+`;
+
+const SelectOption = styled(Select)`
+  .MuiInput-underline&::after {
     border-bottom: 2px solid black;
   }
 `;
