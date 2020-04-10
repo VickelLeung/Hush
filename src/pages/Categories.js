@@ -45,6 +45,7 @@ const LinkBtn = styled(Link)`
   text-decoration: none;
   color: black;
   border: 2px solid black;
+  border-radius: 8px;
   padding: 3%;
   margin: 1%;
 

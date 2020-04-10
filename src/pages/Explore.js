@@ -105,7 +105,6 @@ class Explore extends PureComponent {
       <div>
         <Title>Explore page</Title>
         <SearchBar />
-        <h3>Category : {this.state.category}</h3>
 
         <MainContainer>
           <Container>
@@ -137,6 +136,9 @@ class Explore extends PureComponent {
                           <Typography variant="h3">{res.title}</Typography>
 
                           <Typography variant="h4">From: {res.user}</Typography>
+                          <Typography variant="h5">
+                            Category: {res.category}
+                          </Typography>
                           <Typography variant="h5">{res.date}</Typography>
                           <Typography variant="h5">
                             {res.description}
@@ -197,8 +199,10 @@ class Explore extends PureComponent {
 
 export { Explore };
 
-const Title = styled.div`
+const Title = styled.h1`
   font-weight: 20px;
+  text-align: center;
+  margin: 2% 0;
 `;
 
 const ExploreBtn = styled(Button)`

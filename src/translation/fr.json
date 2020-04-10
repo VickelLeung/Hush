@@ -17,6 +17,8 @@
     "Post Form Categories": "Choisissez une catégorie",
     "Post Form Description": "Partagez votre secret ci-dessous",
     "Post Form anonymous": "Restez anonyme?",
+    "Post Subdescription": "Note: if you do not login to post your secret.Then it will only last for 3 days.If you want to keep it forever then please login ",
+
 
     "Post Dialog Success": "Votre message a été publié avec succès dans la catégorie:",
     "Post View Dialog": "Cliquez pour voir votre message",

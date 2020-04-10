@@ -16,6 +16,8 @@ import createPostBg from "../images/backgroundImages/createPostBg.png";
 import axios from "axios";
 import Captcha from "demos-react-captcha";
 
+import { SnackBars } from "../components/SnackBars/SnackBars";
+
 import { withNamespaces } from "react-i18next";
 
 class CreatePost extends Component {
@@ -28,6 +30,7 @@ class CreatePost extends Component {
     isModal: false,
     linkID: "",
     isValid: false,
+    isError: false,
   };
 
   submit = () => {
@@ -59,6 +62,8 @@ class CreatePost extends Component {
         .catch((err) => console.log(err));
       //this.resetContent();
       this.displayModal();
+    } else {
+      this.setState({ isError: true });
     }
   };
 
@@ -91,15 +96,23 @@ class CreatePost extends Component {
           <InfoContainer>
             <Title>{t("Post Title")}</Title>
             <Title>{t("Post Description")}</Title>
+            <SubTitle>{t("Post Subdescription")}</SubTitle>
           </InfoContainer>
           <FormContainer>
             <LabelText>{t("Post Form Title")}</LabelText>
+            {this.state.isError && !this.state.title ? (
+              <ErrorMsg>ERROR: Please write a title</ErrorMsg>
+            ) : null}
             <TextInput
               id="standard-multiline-static"
               onChange={(e) => this.setState({ title: e.target.value })}
               required
             />
             <LabelText>{t("Post Form Categories")}</LabelText>
+            {this.state.isError && !this.state.category ? (
+              <ErrorMsg>ERROR: Please choose a category</ErrorMsg>
+            ) : null}
+
             <SelectOption onChange={this.handleChange} required>
               <MenuItem value={"love"}>{t("Love")}</MenuItem>
               <MenuItem value={"work"}>{t("Work")}</MenuItem>
@@ -109,6 +122,10 @@ class CreatePost extends Component {
               <MenuItem value={"family"}>{t("Family")}</MenuItem>
             </SelectOption>
             <LabelText>{t("Post Form Description")}</LabelText>
+            {this.state.isError && !this.state.description ? (
+              <ErrorMsg>ERROR: Please share your secret</ErrorMsg>
+            ) : null}
+
             <TextInput
               id="standard-multiline-static"
               multiline
@@ -198,6 +215,9 @@ class CreatePost extends Component {
               </Button>
             </DialogActions>
           </Dialog>
+          {/* <SnackBars open="open" severity="ERROR:">
+            Error
+          </SnackBars> */}
         </MainContainer>
       </Wrapper>
     );
@@ -207,7 +227,7 @@ class CreatePost extends Component {
 export default withNamespaces()(CreatePost);
 
 const Wrapper = styled.div`
-  height: 82vh;
+  height: 100vh;
   width: 100vw;
   background: url(${createPostBg});
 `;
@@ -218,6 +238,7 @@ const FormContainer = styled.form`
   flex-direction: column;
   margin: 0 12%;
   border: 1px solid black;
+  border-radius: 8px;
   padding: 2% 4%;
   width: 50vw;
 `;
@@ -236,6 +257,10 @@ const Title = styled.h2`
   text-align: center;
 `;
 
+const SubTitle = styled.h4`
+  text-align: center;
+`;
+
 const LabelText = styled(Label)`
   font-size: 1.2em;
   font-weight: bold;
@@ -247,6 +272,7 @@ const InfoContainer = styled.div`
   margin: 2% 4%;
   background: white;
   border: 1px solid black;
+  border-radius: 8px;
   color: black;
 `;
 
@@ -266,4 +292,8 @@ const SelectOption = styled(Select)`
   .MuiInput-underline&::after {
     border-bottom: 2px solid black;
   }
+`;
+
+const ErrorMsg = styled.span`
+  color: red;
 `;
