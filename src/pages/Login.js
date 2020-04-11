@@ -13,7 +13,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import FormControl from "@material-ui/core/FormControl";
-import { SnackBars } from "../components/Snacbkar/SnackBars";
+import { SnackBars } from "../components/SnackBars/SnackBars";
 import { connect } from "react-redux";
 import { userLogin } from "../actions/actions";
 

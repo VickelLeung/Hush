@@ -1,95 +1,102 @@
-// import React, {PureComponent} from "react";
-// import styled from "styled-components";
+import React, { PureComponent } from "react";
+import styled from "styled-components";
 // import { w3cwebsocket as W3CWebSocket } from "websocket";
+import io from "socket.io-client";
+//const client = new W3CWebSocket('ws://localhost:8080/', 'echo-protocol');
+// const client = new W3CWebSocket("ws://localhost:3030");
 
-// //const client = new W3CWebSocket('ws://localhost:8080/', 'echo-protocol');
-// const client = new W3CWebSocket('ws://localhost:3030');
+const SOCKET_URI = "https://hushbackend.herokuapp.com/";
+//process.env.REACT_APP_SERVER_URI;
 
-// class Chat extends React.PureComponent{
-    
-//   state = {
-//         currentUsers: [],
-//         userActivity: [],
-//         username: "null",
-//         userMsg: "",
-//         messages: []
+class Chat extends React.PureComponent {
+  socket = null;
+  state = {
+    currentUsers: [],
+    userActivity: [],
+    username: "null",
+    userMsg: "",
+    historyMsg: [],
+  };
 
-//     };
+  componentDidMount = () => {
+    this.initSocketConnection();
+    this.setupSocketListeners();
+  };
 
-//     componentDidMount = () =>{
+  initSocketConnection() {
+    this.socket = io.connect(SOCKET_URI);
+  }
 
-//       client.onopen = function() {
-//         console.log('WebSocket Client Connected');
-     
-//     };
+  setupSocketListeners() {
+    this.socket.on("message", this.onMessageRecieved.bind(this));
+    // this.socket.on("reconnect", this.onReconnection.bind(this));
+    // this.socket.on("disconnect", this.onClientDisconnected.bind(this));
+  }
 
-//     client.onmessage = (message) => {
-//       // this.setState({test : message.data});
-//       const getMsg = JSON.parse(message.data)
-//       this.addMessage(getMsg);
-//       console.log("got msg " + message.data);
-//     };
+  onMessageRecieved = (message) => {
+    let userChatData = this.state.historyMsg;
+    let messageData = message.message;
 
-//     client.onclose = function() {
-      
-//         console.log('echo-protocol Client Closed');
-//     };
+    // userChatData[targetIndex].messages.push(messageData);
+    this.setState({ userChatData });
+  };
 
-//     }
+  addMessage = (message) => {
+    this.setState((state) => ({ messages: [message, ...state.messages] }));
+  };
 
-//     addMessage=(message)=>{ this.setState(state => ({ messages: [message, ...state.messages] })) }
+  // logInUser = () => {
+  //     const username = this.username.value;
+  //     if (username.trim()) {
+  //       const data = {
+  //         username
+  //       };
+  //       this.setState({
+  //         ...data
+  //       }, () => {
+  //         client.send(JSON.stringify({
+  //           ...data,
+  //           type: "userevent"
+  //         }));
+  //       });
+  //     }
+  //   }
 
-//     logInUser = () => {
-//         const username = this.username.value;
-//         if (username.trim()) {
-//           const data = {
-//             username
-//           };
-//           this.setState({
-//             ...data
-//           }, () => {
-//             client.send(JSON.stringify({
-//               ...data,
-//               type: "userevent"
-//             }));
-//           });
-//         }
-//       }
-    
-//     sendMsg = () =>{
-//       const msg = {name: this.state.username, message: this.state.userMsg}
-//         console.log("send message: " + this.state.userMsg);
+  sendMsg = () => {
+    console.log("test");
+    this.socket.emit("message", this.state.userMsg);
+  };
 
-//         client.send(JSON.stringify(msg));
-//         this.addMessage(msg);
-//        // console.log("thi: " + this.state.receiveMsg[0]);
-//     }
+  render() {
+    return (
+      <Wrapper>
+        <h>Message box</h>
+        <MessageBox>
+          {this.state.historyMsg.map((msg, index) => {
+            return (
+              <div key={index}>
+                <h3>username: {msg.name}</h3>
+                <p>msg: {msg.message}</p>
+              </div>
+            );
+          })}
+        </MessageBox>
 
-//     render(){
-//         return(
-//             <Wrapper>
-//               <h>Message box</h>
-//                 <MessageBox>
-//                   {this.state.messages.map((msg, index)=>{
-//                     return<div key={index}>
-//                       <h3>username: {msg.name}</h3>
-//                       <p>msg: {msg.message}</p>
-//                     </div>
-//                   })}
-//                 </MessageBox>
+        {/* <span>Username: </span><input onChange={(e)=>{this.setState({username: e.target.value})}}/> */}
 
-                
-//                 <span>Username: </span><input onChange={(e)=>{this.setState({username: e.target.value})}}/>
+        <input
+          onChange={(e) => {
+            this.setState({ userMsg: e.target.value });
+          }}
+        />
+        <button onClick={this.sendMsg}>Submit</button>
+      </Wrapper>
+    );
+  }
+}
 
-//                 <input onChange={(e)=>{this.setState({userMsg: e.target.value})}} />
-//                 <button onClick={this.sendMsg}>Submit</button>
-//             </Wrapper>
-//         )
-//     }
-// }
+export { Chat };
 
-// export {Chat};
+const Wrapper = styled.div``;
 
-// const Wrapper = styled.div``;
-
-// const MessageBox = styled.div``;
+const MessageBox = styled.div``;

@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import { register } from "../components/UserFunctions";
 import LoginBg from "../images/backgroundImages/loginBg.png";
 import { Link } from "react-router-dom";
-import { SnackBars } from "../components/Snacbkar/SnackBars";
+import { SnackBars } from "../components/SnackBars/SnackBars";
 
 import InputLabel from "@material-ui/core/InputLabel";
 import IconButton from "@material-ui/core/IconButton";

@@ -27,7 +27,7 @@ class SnackBars extends Component {
         onClose={this.handleClose}
         anchorOrigin={{
           vertical: "top",
-          horizontal: "right"
+          horizontal: "right",
         }}
       >
         <MuiAlert
