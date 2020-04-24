@@ -3,20 +3,20 @@ let Post = require("../model/postModel");
 
 getInfo = (req, res) => {
   Post.find()
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+    .then((post) => res.json(post)) //return as json
+    .catch((err) => res.status(400).json("Error: " + err));
 };
 
 getInfoCategory = (request, resources, userCategory) => {
   Post.find({ category: userCategory })
-    .then(post => resources.json(post)) //return as json
-    .catch(err => resources.status(400).json("Error: " + err));
+    .then((post) => resources.json(post)) //return as json
+    .catch((err) => resources.status(400).json("Error: " + err));
 };
 
 getPostId = (request, resources, id) => {
   Post.find({ _id: id })
-    .then(post => resources.json(post)) //return as json
-    .catch(err => resources.status(400).json("Error: " + err));
+    .then((post) => resources.json(post)) //return as json
+    .catch((err) => resources.status(400).json("Error: " + err));
 };
 
 commentPost = (req, res, id) => {
@@ -25,8 +25,8 @@ commentPost = (req, res, id) => {
 
   let update = [{ username: username, message: message }];
   Post.findByIdAndUpdate({ _id: id }, { $push: { comment: update } })
-    .then(post => res.json(post)) //return as json
-    .catch(err => res.status(400).json("Error: " + err));
+    .then((post) => res.json(post)) //return as json
+    .catch((err) => res.status(400).json("Error: " + err));
 };
 
 router.route("/").get((req, res) => {
@@ -151,6 +151,7 @@ router.route("/add").post((req, res) => {
   const category = req.body.category;
   const description = req.body.description;
   const date = Date.parse(req.body.date);
+  const email = req.body.email;
   const user = req.body.user;
   const toExpire = req.body.toExpire;
   let expireAt = "";
@@ -162,17 +163,18 @@ router.route("/add").post((req, res) => {
   const newPost = new Post({
     title,
     user,
+    email,
     category,
     description,
     date,
     toExpire,
-    expireAt
+    expireAt,
   });
 
   newPost
     .save()
-    .then(item => res.json(item.id))
-    .catch(err => res.status(400).json("Error: " + err));
+    .then((item) => res.json(item.id))
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
 //Search
@@ -182,8 +184,8 @@ router.route("/search/:query").get((req, res) => {
   console.log("p:" + query);
 
   Post.find({
-    title: { $regex: ".*" + query + ".*", $options: "i" }
-  }).then(info => {
+    title: { $regex: ".*" + query + ".*", $options: "i" },
+  }).then((info) => {
     if (info.length !== 0) {
       results.push(info);
     } else {
@@ -192,8 +194,8 @@ router.route("/search/:query").get((req, res) => {
     }
 
     Post.find({
-      description: { $regex: ".*" + query + ".*", $options: "i" }
-    }).then(info => {
+      description: { $regex: ".*" + query + ".*", $options: "i" },
+    }).then((info) => {
       if (info.length !== 0) {
         results.push(info);
       } else {
@@ -205,6 +207,18 @@ router.route("/search/:query").get((req, res) => {
       res.send(results);
     });
   });
+});
+
+router.route("/user/:email").get((req, res) => {
+  let email = req.params.email;
+
+  Post.find({ email: email })
+    .then((results) => {
+      res.send(results);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 });
 
 module.exports = router;
