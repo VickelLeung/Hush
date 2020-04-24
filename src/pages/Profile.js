@@ -4,12 +4,14 @@ import { getProfileFetch } from "../actions/actions";
 import styled from "styled-components";
 class Profile extends PureComponent {
   state = {
-    userInfo: [],
-    displayName: ""
+    userInfo: {},
+    displayName: "",
   };
 
   componentDidMount = () => {
-    this.props.getProfileFetch();
+    //set userdetails
+    this.setState({ userInfo: this.props.userDetails });
+    // this.props.getProfileFetch();
     // let getProps = this.props.location.state.detail._doc;
     // this.setState({
     //   userInfo: getProps._doc,
@@ -23,7 +25,8 @@ class Profile extends PureComponent {
   render() {
     return (
       <div>
-        <h2>Welcome, {this.state.displayName}</h2>
+        <h2>Welcome, {this.state.userInfo.displayName}</h2>
+        <p> {this.state.userInfo.email}</p>
         <ImgContainer>
           <ProfileImg alt="profile" />
           <Name>John</Name>
@@ -38,18 +41,23 @@ class Profile extends PureComponent {
 //userPostFetch: userInfo => dispatch(userPostFetch(userInfo))
 // }
 
-const mapDispatchToProps = dispatch => ({
-  getProfileFetch: () => dispatch(getProfileFetch())
-});
+// mapStateToProps: this is used to retrieve the store state
+// const mapStateToProps = (state) => ({
+//   ...state,
+// });
 
-// const mapStateToProps = state => {
-//   console.log(state);
-//   // return {
-//   //    items: state.cart.items,
-//   // };
-// };
+// const mapDispatchToProps = (dispatch) => ({
+//   getProfileFetch: () => dispatch(getProfileFetch()),
+// });
 
-export default connect(null, mapDispatchToProps)(Profile);
+const mapStateToProps = (state) => {
+  console.log(state.currentUser._doc);
+  return {
+    userDetails: state.currentUser._doc,
+  };
+};
+
+export default connect(mapStateToProps, {})(Profile);
 
 const ImgContainer = styled.div`
   border: 1px solid black;

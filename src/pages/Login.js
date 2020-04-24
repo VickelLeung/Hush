@@ -35,34 +35,16 @@ class Login extends PureComponent {
       password: this.state.loginPassword,
     };
 
-    this.props.userLogin(userData);
-
-    // login(userData)
-    //   .then(res => {
-    //     // console.log(res);
-    //     // console.log(res === null);
-    //     // console.log(res.error);
-
-    //     if (res.error) {
-    //       console.log("Erros ");
-    //       this.setState({ openError: true });
-    //     }
-
-    //     if (res._doc != null) {
-    //       console.log(res);
-    //       this.setState({ isLogin: true });
-
-    //       this.props.history.push({
-    //         pathname: "/profile",
-    //         // search: "?query=abc",
-    //         state: { detail: res }
-    //       });
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //     // this.setState({ errorMsg: err });
-    //   });
+    this.props
+      .userLogin(userData)
+      .then((res) => {
+        if (res == "Success") {
+          this.props.history.push("/profile");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   render() {
@@ -143,17 +125,16 @@ class Login extends PureComponent {
     );
   }
 }
-
-const mapDispatchToProps = (dispatch) => ({
-  userLogin: (userInfo) => dispatch(userLogin(userInfo)),
-});
-
 const mapStateToProps = (state) => {
   console.log(state.currentUser._doc);
   return {
     userDetails: state.currentUser._doc,
   };
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  userLogin: (userInfo) => dispatch(userLogin(userInfo)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
 

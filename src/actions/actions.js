@@ -1,54 +1,60 @@
 import axios from "axios";
 
-export const userPostFetch = user => {
-  return dispatch => {
+export const userPostFetch = (user) => {
+  return (dispatch) => {
     return axios
       .post("https://hushbackend.herokuapp.com/user/register", {
         email: user.email,
-        password: user.password
+        password: user.password,
       })
-      .then(response => {
+      .then((response) => {
         // localStorage.setItem("usertoken", response.data);
         console.log(response.data);
         dispatch(loginUser(response.data));
         // return response.data;
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("Error " + err);
       });
   };
 };
 
-export const userLogin = user => {
-  return dispatch => {
+export const userLogin = (user) => {
+  console.log("inside login");
+  return (dispatch) => {
     return axios
       .post("https://hushbackend.herokuapp.com/user/login", {
         email: user.email,
-        password: user.password
+        password: user.password,
       })
-      .then(response => {
+      .then((response) => {
         localStorage.setItem("usertoken", response.data);
         console.log("Logged");
         console.log(response.data);
-        dispatch(loginUser(response.data));
-        // return response.data;
+        if ("error" in response.data) {
+          return "Failure";
+        } else {
+          dispatch(loginUser(response.data));
+          return "Success";
+        }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("Error " + err);
+        return "Failure";
       });
   };
 };
 
 export const getProfileFetch = () => {
   //  export const getProfile = user => {
-  return dispatch => {
+  return (dispatch) => {
     return axios
       .get("https://hushbackend.herokuapp.com/user/profile", {})
-      .then(response => {
+      .then((response) => {
         console.log(response);
         dispatch(response.data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -79,7 +85,7 @@ export const getProfileFetch = () => {
   // }
 };
 
-const loginUser = userObj => ({
+const loginUser = (userObj) => ({
   type: "LOGIN_USER",
-  payload: userObj
+  payload: userObj,
 });
